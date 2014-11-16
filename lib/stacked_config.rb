@@ -1,7 +1,6 @@
 require 'super_stack'
 
 require 'stacked_config/version'
+require 'stacked_config/source_manager'
+require 'stacked_config/orchestrator'
 
-module StackedConfig
-  # Your code goes here...
-end
