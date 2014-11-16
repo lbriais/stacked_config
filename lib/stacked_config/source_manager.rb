@@ -5,10 +5,8 @@ module StackedConfig
         mingw32: :windows,
         linux: :unix
     }
-
     DEFAULT_OS_FLAVOUR = :unix
-
-    FLAVOUR_PLACES = {
+    OS_DEPENDING_PLACES = {
         unix: {
             system: ['/etc'],
 
@@ -16,20 +14,27 @@ module StackedConfig
             global: %w(/etc /usr/local/etc),
 
             # Where could be stored user configuration
-            user:  ["#{ENV['HOME']}/.config"]
+            user:  [File.join(ENV['HOME'] || '', '.config')]
         },
         windows: {
-            system: ["#{ENV['systemRoot']}/Config"],
+            system: [File.join(ENV['systemRoot'] || '', 'Config')],
 
             # Where could be stored global configuration
-            global: ["#{ENV['systemRoot']}/Config",
-                     "#{ENV['ALLUSERSPROFILE']}/Application Data"],
+            global: [File.join(ENV['systemRoot']|| '', 'Config'),
+                     File.join(ENV['ALLUSERSPROFILE']|| '', '/Application Data')],
 
             # Where could be stored user configuration
             user: [ENV['APPDATA']]
         }
     }
 
+    def supported_oses
+      OS_FLAVOURS.values.sort.uniq
+    end
+
+    def supported_levels
+      config_file_places.keys
+    end
 
     def os_flavour
       @os_flavour ||= OS_FLAVOURS[RbConfig::CONFIG['target_os'].to_sym]
@@ -37,7 +42,14 @@ module StackedConfig
     end
 
     def config_file_places(level=:all, os_flavour = self.os_flavour)
-      level == :all ? FLAVOUR_PLACES[os_flavour] : FLAVOUR_PLACES[os_flavour][level]
+      places = level == :all ? OS_DEPENDING_PLACES[os_flavour] : OS_DEPENDING_PLACES[os_flavour][level]
+      places
+    end
+
+    def gem_of_file(file=__FILE__)
+      Gem::Specification.find do |spec|
+        File.fnmatch(File.join(spec.full_gem_path,'*'), file)
+      end
     end
 
     private
@@ -64,7 +76,7 @@ module StackedConfig
 
     def self.possible_config_places(file_of_gem=nil)
       root = gem_root_path file_of_gem
-      places = FLAVOUR_PLACES[os_flavour].dup
+      places = OS_DEPENDING_PLACES[os_flavour].dup
       places[:internal] = %w(etc config).map do |place|
         File.join root, place
       end
