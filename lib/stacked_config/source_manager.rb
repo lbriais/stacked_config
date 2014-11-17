@@ -46,7 +46,7 @@ module StackedConfig
       places
     end
 
-    def gem_of_file(file=__FILE__)
+    def spec_of_file(file=__FILE__)
       Gem::Specification.find do |spec|
         File.fnmatch(File.join(spec.full_gem_path,'*'), file)
       end
