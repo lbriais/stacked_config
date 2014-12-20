@@ -1,0 +1,5 @@
+# This is supposed to be a file at "system" level.
+# It is dedicated to configuration for all gems that would use the stacked_config gem.
+# To be used at administrator level only
+
+stacked_config_copyright: (c)2014 L.Briais under MIT license
