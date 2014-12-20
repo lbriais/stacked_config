@@ -26,9 +26,16 @@ describe StackedConfig::Orchestrator do
       expect(subject.system_layer).to be subject.to_a.first
     end
 
+    it 'should have the global layer evaluated in second' do
+      expect(subject.global_layer).to be subject.to_a[1]
+    end
+
     it 'should have the writable layer evaluated last' do
       expect(subject.write_layer).to be subject.to_a.last
     end
+
+
+
 
   end
 
