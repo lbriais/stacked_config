@@ -12,12 +12,14 @@ describe StackedConfig::Orchestrator do
       altered_sys_conf_root[k] = File.join gem_path, 'test', os.to_s, v
     end
     allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root[os] }
+    allow(StackedConfig::SourceHelper).to receive(:user_config_root) { File.join gem_path, 'test', 'user' }
 
     StackedConfig::Orchestrator.new
   }
 
   it 'should have multiple layers' do
     expect(subject.layers.length > 0).to be_truthy
+    puts subject[].to_yaml
   end
 
   context 'when setup by default, priorities should be defined in the Unix standard way' do
@@ -28,6 +30,10 @@ describe StackedConfig::Orchestrator do
 
     it 'should have the global layer evaluated in second' do
       expect(subject.global_layer).to be subject.to_a[1]
+    end
+
+    it 'should have the user layer evaluated in third' do
+      expect(subject.user_layer).to be subject.to_a[2]
     end
 
     it 'should have the writable layer evaluated last' do

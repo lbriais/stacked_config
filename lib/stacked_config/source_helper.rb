@@ -12,6 +12,11 @@ module StackedConfig
         unix: '/etc'
     }
 
+    USER_CONFIG_ROOT = {
+        windows: ENV['APPDATA'],
+        unix: ENV['HOME']
+    }
+
     EXTENSIONS = %w(conf CONF cfg CFG yml YML yaml YAML)
 
     def self.os_flavour
@@ -26,6 +31,10 @@ module StackedConfig
       SYSTEM_CONFIG_ROOT[os_flavour]
     end
 
+    def self.user_config_root
+      USER_CONFIG_ROOT[os_flavour]
+    end
+
 
     def supported_oses
       StackedConfig::SourceHelper.supported_oses
@@ -37,6 +46,10 @@ module StackedConfig
 
     def system_config_root
       StackedConfig::SourceHelper.system_config_root
+    end
+
+    def user_config_root
+      StackedConfig::SourceHelper.user_config_root
     end
 
     def set_config_file(places)
@@ -62,6 +75,7 @@ module StackedConfig
     def perform_substitutions path_part
       res = path_part.dup
       res.gsub! '##SYSTEM_CONFIG_ROOT##', system_config_root
+      res.gsub! '##USER_CONFIG_ROOT##', user_config_root
       res.gsub! '##PROGRAM_NAME##', File.basename($PROGRAM_NAME)
       res
     end

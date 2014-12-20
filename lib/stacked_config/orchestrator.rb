@@ -1,7 +1,7 @@
 module StackedConfig
   class Orchestrator < SuperStack::Manager
 
-    attr_reader :system_layer, :global_layer
+    attr_reader :system_layer, :global_layer, :user_layer
 
     def initialize
       super
@@ -15,16 +15,17 @@ module StackedConfig
     def setup_layers
       # The system level
       @system_layer = setup_layer StackedConfig::Layers::SystemLayer, 'System-wide configuration level', 10
-      # system_layer.load
 
       # The global level
       @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 20
-      # global_layer.load
 
+      # The user level
+      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 20
 
       # The layer to write something
       override_layer = setup_layer SuperStack::Layer, 'Overridden configuration level', 1000
       self.write_layer = override_layer
+
       reload_layers
     end
 
