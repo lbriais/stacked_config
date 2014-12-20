@@ -9,8 +9,12 @@ module StackedConfig
           ['##SYSTEM_CONFIG_ROOT##', 'stacked_config', 'config.##EXTENSION##' ]
       ]
 
-      def initialize
+      def rescan
         set_config_file POSSIBLE_SOURCES
+      end
+
+      def initialize
+        rescan
       end
 
     end

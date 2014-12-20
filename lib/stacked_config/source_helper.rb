@@ -1,8 +1,6 @@
 module StackedConfig
   module SourceHelper
 
-    attr_reader :config_file
-
     OS_FLAVOURS = {
         mingw32: :windows,
         linux: :unix
@@ -33,9 +31,9 @@ module StackedConfig
       @file_name = nil
       places.each do |path_array|
         # Perform path substitutions
-        potential_config_file = File.join path_array.map do |path_part|
+        potential_config_file = File.join(path_array.map do |path_part|
           perform_substitutions path_part
-        end
+        end)
         # Try to find config file with extension
         EXTENSIONS.each do |extension|
           file  = potential_config_file.gsub '##EXTENSION##', extension
@@ -52,7 +50,7 @@ module StackedConfig
 
 
     def perform_substitutions path_part
-      res = path_part
+      res = path_part.dup
       res.gsub! '##SYSTEM_CONFIG_ROOT##', system_config_root
       res
     end
