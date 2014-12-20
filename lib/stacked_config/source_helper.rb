@@ -14,17 +14,29 @@ module StackedConfig
 
     EXTENSIONS = %w(conf CONF cfg CFG yml YML yaml YAML)
 
-    def supported_oses
+    def self.os_flavour
+      OS_FLAVOURS[RbConfig::CONFIG['target_os'].to_sym] || DEFAULT_OS_FLAVOUR
+    end
+
+    def self.supported_oses
       OS_FLAVOURS.values.sort.uniq
     end
 
+    def self.system_config_root
+      SYSTEM_CONFIG_ROOT[os_flavour]
+    end
+
+
+    def supported_oses
+      StackedConfig::SourceHelper.supported_oses
+    end
+
     def os_flavour
-      @os_flavour ||= OS_FLAVOURS[RbConfig::CONFIG['target_os'].to_sym]
-      @os_flavour ||= DEFAULT_OS_FLAVOUR
+      @os_flavour ||= StackedConfig::SourceHelper.os_flavour
     end
 
     def system_config_root
-      SYSTEM_CONFIG_ROOT[os_flavour]
+      StackedConfig::SourceHelper.system_config_root
     end
 
     def set_config_file(places)
@@ -39,12 +51,10 @@ module StackedConfig
           file  = potential_config_file.gsub '##EXTENSION##', extension
           if File.readable? file
             @file_name = file
-            break
+            return @file_name
           end
         end
-        break if @config_file
       end
-      @file_name
     end
 
 
