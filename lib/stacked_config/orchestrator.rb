@@ -1,8 +1,16 @@
 module StackedConfig
   class Orchestrator < SuperStack::Manager
 
-    include StackedConfig::SourceManager
+    def initialize
+      setup_layers
+    end
 
+
+    private
+
+    def setup_layers
+
+    end
 
   end
 end
