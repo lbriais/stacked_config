@@ -41,8 +41,6 @@ describe StackedConfig::Orchestrator do
     end
 
 
-
-
   end
 
 
