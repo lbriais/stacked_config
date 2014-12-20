@@ -1,0 +1,7 @@
+# This is supposed to be a file at "global" level.
+# It is dedicated to configuration for all users running the program rspec
+# To be used at administrator level only
+
+an_array:
+  - defined at global level
+  - pretty cool (global)

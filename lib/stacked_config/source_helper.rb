@@ -62,6 +62,7 @@ module StackedConfig
     def perform_substitutions path_part
       res = path_part.dup
       res.gsub! '##SYSTEM_CONFIG_ROOT##', system_config_root
+      res.gsub! '##PROGRAM_NAME##', File.basename($PROGRAM_NAME)
       res
     end
 
