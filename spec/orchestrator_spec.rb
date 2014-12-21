@@ -32,12 +32,10 @@ describe StackedConfig::Orchestrator do
     it 'should reload all config files' do
       expect(subject[:user_defined]).not_to be_nil
       expect(subject[:weird_property]).to be_nil
-      subject.executable_name = 'weird-name'
+      subject.executable_name = 'weird_name'
       expect(subject[:user_defined]).to be_nil
       expect(subject[:weird_property]).not_to be_nil
     end
-
-
 
 
   end

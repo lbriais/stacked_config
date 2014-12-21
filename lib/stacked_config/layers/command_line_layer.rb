@@ -4,7 +4,6 @@ module StackedConfig
     class CommandLineLayer < SuperStack::Layer
 
       attr_reader :slop_definition
-      attr_accessor :executable_name, :app_name, :app_version, :app_description
 
       def initialize
         @slop_definition = Slop.new
@@ -53,7 +52,11 @@ module StackedConfig
       end
 
       def build_banner
-        "\nUsage: #{executable_name} [options]\n#{app_name} Version: #{app_version}\n\n#{app_description}"
+        if manager.nil?
+          'No banner unless added to a manager !'
+        else
+          "\nUsage: #{manager.executable_name} [options]\n#{manager.app_name} Version: #{manager.app_version}\n\n#{manager.app_description}"
+        end
       end
 
 

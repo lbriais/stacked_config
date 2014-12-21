@@ -1,44 +1,34 @@
 module StackedConfig
   module ProgramDescriptionHelper
 
+    attr_reader :executable_name, :app_name, :app_version, :app_description
+
     def add_command_line_section(title='Script specific', &block)
       command_line_layer.add_command_line_section title, &block
     end
 
-    def executable_name
-      command_line_layer.executable_name
-    end
     def executable_name=(executable_name)
       return if executable_name.nil?
-      command_line_layer.executable_name = executable_name
+      @executable_name = executable_name
       rescan_layers
       reload_layers
     end
 
-    def app_name
-      command_line_layer.app_name
-    end
     def app_name=(app_name)
       return if app_name.nil?
-      command_line_layer.app_name = app_name
+      @app_name = app_name
       command_line_layer.reload
     end
 
-    def app_version
-      command_line_layer.app_version
-    end
     def app_version=(app_version)
       return if app_version.nil?
-      command_line_layer.app_version = app_version
+      @app_version = app_version
       command_line_layer.reload
     end
 
-    def app_description
-      command_line_layer.app_description
-    end
     def app_description=(app_description)
       return if app_description.nil?
-      command_line_layer.app_description = app_description
+      @app_description = app_description
       command_line_layer.reload
     end
 

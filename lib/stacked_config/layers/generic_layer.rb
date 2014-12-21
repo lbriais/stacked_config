@@ -12,8 +12,7 @@ module StackedConfig
         set_config_file possible_sources
       end
 
-      def initialize(orchestrator)
-        @orchestrator = orchestrator
+      def initialize
         rescan
       end
 
