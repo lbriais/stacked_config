@@ -18,12 +18,12 @@ describe StackedConfig::Orchestrator do
 
   it 'should have multiple layers' do
     expect(subject.layers.length > 0).to be_truthy
-    puts '#' * 80
-    puts subject.layers.to_yaml
-    puts '#' * 80
-    puts subject[].to_yaml
-    puts '#' * 80
-    puts subject.command_line_layer.help
+    # puts '#' * 80
+    # puts subject.layers.to_yaml
+    # puts '#' * 80
+    # puts subject[].to_yaml
+    # puts '#' * 80
+    # puts subject.command_line_layer.help
   end
 
 
@@ -37,6 +37,11 @@ describe StackedConfig::Orchestrator do
       expect(subject[:weird_property]).not_to be_nil
     end
 
+    it 'should keep the modified values' do
+      subject[:modified_value] = :pipo
+      subject.executable_name = 'weird_name'
+      expect(subject[:modified_value]).not_to be_nil
+    end
 
   end
 
