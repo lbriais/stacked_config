@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['lbnetid+gh@gmail.com']
   spec.summary       = %q{Manages config files according to standard policy.}
   spec.description   = %q{A config file manager on steroids focusing on places.}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/lbriais/stacked_config'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
