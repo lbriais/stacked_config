@@ -1,7 +1,7 @@
 module StackedConfig
   class Orchestrator < SuperStack::Manager
 
-    attr_reader :system_layer, :global_layer, :user_layer
+    attr_reader :system_layer, :global_layer, :user_layer, :command_line_layer
 
     def initialize
       super
@@ -9,6 +9,12 @@ module StackedConfig
       setup_layers
     end
 
+
+    # Yields a slop definition to modify the command line parameters
+    # @param [String] title used to insert a slop separator
+    def add_command_line_section(title='Script specific', &block)
+      command_line_layer.add_command_line_section title, &block
+    end
 
     private
 
