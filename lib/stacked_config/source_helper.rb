@@ -76,7 +76,7 @@ module StackedConfig
       res = path_part.dup
       res.gsub! '##SYSTEM_CONFIG_ROOT##', system_config_root
       res.gsub! '##USER_CONFIG_ROOT##', user_config_root
-      res.gsub! '##PROGRAM_NAME##', File.basename($PROGRAM_NAME)
+      res.gsub! '##PROGRAM_NAME##', executable_name
       res
     end
 

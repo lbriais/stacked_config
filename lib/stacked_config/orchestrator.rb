@@ -3,8 +3,7 @@ module StackedConfig
 
     include StackedConfig::ProgramDescriptionHelper
 
-    attr_reader :system_layer, :global_layer, :user_layer, :command_line_layer,
-                :executable_name, :app_name, :app_version, :app_description
+    attr_reader :system_layer, :global_layer, :user_layer, :command_line_layer
 
     def initialize
       super

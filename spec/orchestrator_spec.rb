@@ -18,12 +18,28 @@ describe StackedConfig::Orchestrator do
 
   it 'should have multiple layers' do
     expect(subject.layers.length > 0).to be_truthy
-    # puts '#' * 80
-    # puts subject.layers.to_yaml
-    # puts '#' * 80
-    # puts subject[].to_yaml
-    # puts '#' * 80
-    # puts subject.command_line_layer.help
+    puts '#' * 80
+    puts subject.layers.to_yaml
+    puts '#' * 80
+    puts subject[].to_yaml
+    puts '#' * 80
+    puts subject.command_line_layer.help
+  end
+
+
+  context 'when changing the executable_name' do
+
+    it 'should reload all config files' do
+      expect(subject[:user_defined]).not_to be_nil
+      expect(subject[:weird_property]).to be_nil
+      subject.executable_name = 'weird-name'
+      expect(subject[:user_defined]).to be_nil
+      expect(subject[:weird_property]).not_to be_nil
+    end
+
+
+
+
   end
 
   context 'when setup by default, priorities should be defined in the Unix standard way' do
@@ -47,7 +63,6 @@ describe StackedConfig::Orchestrator do
     it 'should have the writable layer evaluated last' do
       expect(subject.write_layer).to be subject.to_a.last
     end
-
 
   end
 
