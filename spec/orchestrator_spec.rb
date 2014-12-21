@@ -4,15 +4,14 @@ require 'spec_helper'
 describe StackedConfig::Orchestrator do
 
   subject {
+    # Patching SourceHelper to find test config files in this gem test directory instead of from the system.
     os = StackedConfig::SourceHelper.os_flavour
     gem_path = File.expand_path '../..', __FILE__
+    altered_sys_conf_root = File.join gem_path, 'test', os.to_s, StackedConfig::SourceHelper::SYSTEM_CONFIG_ROOT[os]
+    altered_user_conf_root = File.join gem_path, 'test', 'user'
 
-    altered_sys_conf_root =  {}
-    StackedConfig::SourceHelper::SYSTEM_CONFIG_ROOT.each_pair do |k,v|
-      altered_sys_conf_root[k] = File.join gem_path, 'test', os.to_s, v
-    end
-    allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root[os] }
-    allow(StackedConfig::SourceHelper).to receive(:user_config_root) { File.join gem_path, 'test', 'user' }
+    allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root }
+    allow(StackedConfig::SourceHelper).to receive(:user_config_root) { altered_user_conf_root }
 
     StackedConfig::Orchestrator.new
   }
@@ -39,6 +38,10 @@ describe StackedConfig::Orchestrator do
 
     it 'should have the user layer evaluated in third' do
       expect(subject.user_layer).to be subject.to_a[2]
+    end
+
+    it 'should have the command-line layer evaluated in fourth' do
+      expect(subject.command_line_layer).to be subject.to_a[3]
     end
 
     it 'should have the writable layer evaluated last' do
