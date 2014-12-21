@@ -1,6 +1,10 @@
 # StackedConfig
 
-TODO: Write a gem description
+Code should be ready for prod
+
+No doc written for the time being
+
+Wait for version 0.1.x
 
 ## Installation
 
