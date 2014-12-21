@@ -19,6 +19,7 @@ describe StackedConfig::Orchestrator do
 
   it 'should have multiple layers' do
     expect(subject.layers.length > 0).to be_truthy
+    puts subject.layers.to_yaml
   end
 
   context 'when setup by default, priorities should be defined in the Unix standard way' do

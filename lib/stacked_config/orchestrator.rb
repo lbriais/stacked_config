@@ -20,7 +20,10 @@ module StackedConfig
       @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 20
 
       # The user level
-      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 20
+      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 30
+
+      # The command line level
+      @command_line_layer = setup_layer StackedConfig::Layers::CommandLineLayer, 'Command line configuration level', 100
 
       # The layer to write something
       override_layer = setup_layer SuperStack::Layer, 'Overridden configuration level', 1000
