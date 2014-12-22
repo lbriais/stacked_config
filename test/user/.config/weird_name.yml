@@ -1,0 +1,5 @@
+# This is supposed to be a file at "user" level.
+# It is dedicated to configuration for this particular user running the program rspec.
+# To be used at user level
+
+weird_property: Defined in 'weird_name' config file.
