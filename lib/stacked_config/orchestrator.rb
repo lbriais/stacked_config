@@ -3,7 +3,8 @@ module StackedConfig
 
     include StackedConfig::ProgramDescriptionHelper
 
-    attr_reader :system_layer, :global_layer, :user_layer, :command_line_layer
+    attr_reader :system_layer, :global_layer, :user_layer, :command_line_layer,
+                :provided_config_file_layer
 
     def initialize
       super
@@ -26,7 +27,7 @@ module StackedConfig
       @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 30
 
       # The specifically provided config file level
-      # @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 40
+      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 40
 
       # The command line level
       @command_line_layer = setup_layer StackedConfig::Layers::CommandLineLayer, 'Command line configuration level', 100
