@@ -12,10 +12,10 @@ By default, it will handle already few config layers:
 * The __command-line layer__, which provides the ability to specify options from the command line.
 * The __override layer__, which will contain all modifications done to the config at run time.
 
-The different layers are evaluated by default in that order using the [super_stack gem](SS) (Please read for more
+The different layers are evaluated by default in that order using the [super_stack gem][SS] (Please read for more
 detail).
 
-All the config files are following the [YAML](yaml) syntax.
+All the config files are following the [YAML][yaml] syntax.
 
 ## Installation
 
@@ -60,9 +60,9 @@ end
 at the source to understand where exactly your config files can be, but basically it is following the Unix way of
 doing things...
 
-* Sources for the [system layer](SystemLayer)
-* Sources for the [global layer](GlobalLayer)
-* Sources for the [user layer](UserLayer)
+* Sources for the [system layer][SystemLayer]
+* Sources for the [global layer][GlobalLayer]
+* Sources for the [user layer][UserLayer]
 
 As you can see in the sources, paths are expressed using kind of 'templates', which meaning should be obvious
 
@@ -78,7 +78,7 @@ As you can see in the sources, paths are expressed using kind of 'templates', wh
 
 ## Contributing
 
-1. [Fork it] ( http://github.com/lbriais/stacked_config/fork )
+1. [Fork it] ( https://github.com/lbriais/stacked_config/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
