@@ -2,8 +2,8 @@
  [![Build Status](https://travis-ci.org/lbriais/stacked_config.svg)](https://travis-ci.org/lbriais/stacked_config)
  [![Gem Version](https://badge.fury.io/rb/stacked_config.svg)](http://badge.fury.io/rb/stacked_config)
 
-The purpose of this gem is to provide a simple way to handle the inheritance of config files for a ruby script.
-By default, it will handle already few config layers:
+The purpose of this gem is to provide a __simple__ way to handle the __inheritance__ of __config files__ for a ruby
+script. By default, it will handle already few config layers:
 
 * The __system layer__, which is a level common to all applications using this gem.
 * The __global layer__, which is the level to declare options for all users that use the ruby script using this gem.
@@ -54,6 +54,10 @@ if config[:help]
 end
 ```
 
+Try this little script and then create some config files to test how it is handled (see next section to know where to
+create the config files).
+
+
 ### Where are my config files ?
 
 `stacked_config` will look for config files in different places depending on the layer we are talking about. Have a look
@@ -72,7 +76,21 @@ As you can see in the sources, paths are expressed using kind of 'templates', wh
 * `##USER_CONFIG_ROOT##` is where the user config is stored. On Unix systems, it should be your `$HOME` directory.
 * `##EXTENSION##` is one of the following extensions : `conf CONF cfg CFG yml YML yaml YAML`.
 
+The search of the config files is done according to the order defined in sources just above and then extensions
+are tried according to the extensions just above in that exact order.
+
+__The first file matching for a particular level is used !__ And there is only one.
+
+Thus according to the rules above, and assuming my script is named `my_script.rb` if the two following files exists at
+user config level, only the first is taken in account:
+
+* `~/.my_script.yml`
+* `~/.config/my_script.conf`
+
+
 ### Script command line options
+
+
 
 ### Advanced usage
 
