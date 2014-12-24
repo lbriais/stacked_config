@@ -5,10 +5,7 @@ module StackedConfig
 
       include StackedConfig::SourceHelper
 
-      attr_reader :orchestrator
-
       def rescan
-
         set_config_file possible_sources
       end
 
