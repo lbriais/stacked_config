@@ -77,7 +77,7 @@ module StackedConfig
       res.gsub! '##SYSTEM_CONFIG_ROOT##', system_config_root
       res.gsub! '##USER_CONFIG_ROOT##', user_config_root
 
-      exec_name = manager.nil? ? File.basename($PROGRAM_NAME) : manager.executable_name
+      exec_name = manager.nil? ? StackedConfig::Orchestrator.default_executable_name : manager.executable_name
       res.gsub! '##PROGRAM_NAME##', exec_name
       res
     end
