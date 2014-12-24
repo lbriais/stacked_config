@@ -17,6 +17,10 @@ module StackedConfig
     private
 
     def setup_layers
+
+      # The command line level.
+      @command_line_layer = setup_layer StackedConfig::Layers::CommandLineLayer, 'Command line configuration level', 100
+
       # The system level
       @system_layer = setup_layer StackedConfig::Layers::SystemLayer, 'System-wide configuration level', 10
 
@@ -28,9 +32,6 @@ module StackedConfig
 
       # The specifically provided config file level
       @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 40
-
-      # The command line level
-      @command_line_layer = setup_layer StackedConfig::Layers::CommandLineLayer, 'Command line configuration level', 100
 
       # The layer to write something
       override_layer = setup_layer SuperStack::Layer, 'Overridden configuration level', 1000

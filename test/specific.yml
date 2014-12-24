@@ -1,0 +1,6 @@
+# This is supposed to be a file loaded using the config-file command line option.
+# It is dedicated to configuration for this particular user running the program.
+
+specific_property: foo
+an_array:
+  - something very specific

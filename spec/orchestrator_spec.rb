@@ -18,22 +18,22 @@ describe StackedConfig::Orchestrator do
 
   it 'should have multiple layers' do
     expect(subject.layers.length > 0).to be_truthy
-    puts '#' * 80
-    puts subject.layers.to_yaml
-    puts '#' * 80
-    puts subject[].to_yaml
-    puts '#' * 80
-    puts subject.command_line_layer.help
+    # puts '#' * 80
+    # puts subject.layers.to_yaml
+    # puts '#' * 80
+    # puts subject[].to_yaml
+    # puts '#' * 80
+    # puts subject.command_line_layer.help
   end
 
 
   context 'when changing the executable_name' do
 
     it 'should reload all config files' do
-      expect(subject[:user_defined]).not_to be_nil
+      expect(subject[:user_property]).not_to be_nil
       expect(subject[:weird_property]).to be_nil
       subject.executable_name = 'weird_name'
-      expect(subject[:user_defined]).to be_nil
+      expect(subject[:user_property]).to be_nil
       expect(subject[:weird_property]).not_to be_nil
     end
 
@@ -59,8 +59,12 @@ describe StackedConfig::Orchestrator do
       expect(subject.user_layer).to be subject.to_a[2]
     end
 
-    it 'should have the command-line layer evaluated in fourth' do
-      expect(subject.command_line_layer).to be subject.to_a[3]
+    it 'should have the specific-file layer evaluated in fourth' do
+      expect(subject.provided_config_file_layer).to be subject.to_a[3]
+    end
+
+    it 'should have the command-line layer evaluated in fifth' do
+      expect(subject.command_line_layer).to be subject.to_a[4]
     end
 
     it 'should have the writable layer evaluated last' do
@@ -69,7 +73,42 @@ describe StackedConfig::Orchestrator do
 
   end
 
+  context 'when config-file is provided on the command line' do
 
+    let(:test_config_file) {
+      gem_path = File.expand_path '../..', __FILE__
+      File.join gem_path, 'test', 'specific.yml'
+    }
+
+    it 'should add the content of the specified config-file' do
+      subject[:'config-file'] = test_config_file
+      subject.provided_config_file_layer.managed
+      subject.provided_config_file_layer.reload
+      expect(subject[:system_property]).not_to be_nil
+      expect(subject[:global_property]).not_to be_nil
+      expect(subject[:user_property]).not_to be_nil
+      expect(subject[:specific_property]).not_to be_nil
+    end
+
+
+    context 'when specifying config-override on the command line' do
+
+      it 'should override all preceding layers (system, global, user)' do
+        subject[:'config-file'] = test_config_file
+        subject[:'config-override'] = true
+        subject.provided_config_file_layer.managed
+        subject.provided_config_file_layer.reload
+        expect(subject[:system_property]).to be_nil
+        expect(subject[:global_property]).to be_nil
+        expect(subject[:user_property]).to be_nil
+        expect(subject[:specific_property]).not_to be_nil
+        expect(subject[:'config-override']).not_to be_nil
+      end
+
+
+    end
+
+  end
 
 
 end
