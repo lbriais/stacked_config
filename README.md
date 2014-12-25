@@ -334,21 +334,21 @@ end
 MyApp.new.run
 ```
 
-If you run
+If you run:
 
     $ ./example.rb
 
-You would get
+You would get:
 
 ```
  ## Bye...
 ```
 
-If you run
+If you run:
 
     $ ./example.rb --help
 
-You would get
+You would get:
 
 ```
 Usage: example [options]
@@ -368,11 +368,11 @@ Best app ever
         --an_int               Stupid option with integer argument
 ```
 
-If you run
+If you run:
 
     $ ./example.rb --verbose
 
-You would get
+You would get:
 ```
  ## Here is a display of the config sources and contents
 --------------------------------------------------------------------------------
