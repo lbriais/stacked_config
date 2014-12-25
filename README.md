@@ -120,7 +120,7 @@ By defaut the following command line options are available:
 * help                 Displays this help. Just provided for convenience. Not used anywhere in the code.
 * config-file          Specify a config file for the extra layer.
 * config-override      If specified override all other config (actually changes the merge policy see [below]
-                       (#Changing_the_way_things_are_merged)).
+                       (#changing-the-way-things-are-merged)).
 
 Flags that are said "Just provided for convenience. Not used anywhere in the code." are just there because they are
 standard options and thus you can easily test in your code.
