@@ -110,6 +110,26 @@ end
 
 The `add_command_line_section` method supports a parameter to define the name of the section.
 
+By defaut the following command line options are available:
+
+* auto                 Auto mode. Bypasses questions to user. Just provided for convenience. Not used anywhere in the
+                       code.
+* simulate             Do not perform the actual underlying actions. Just provided for convenience. Not used anywhere
+                       in the code.
+* verbose              Enable verbose mode. Just provided for convenience. Not used anywhere in the code.
+* help                 Displays this help. Just provided for convenience. Not used anywhere in the code.
+* config-file          Specify a config file for the extra layer.
+* config-override      If specified override all other config (actually changes the merge policy see [below]
+                       (#Changing_the_way_things_are_merged)).
+
+Flags that are said "Just provided for convenience. Not used anywhere in the code." are just there because they are
+standard options and thus you can easily test in your code.
+
+```ruby
+puts "Something very important" if config[:verbose]
+```
+
+
 
 ### Advanced usage
 
@@ -148,6 +168,18 @@ layers.
 
 But basically just create your new layer, gives it a priority and add it to the orchestrator.
 
+#### Changing the way things are merged
+
+The [super_stack gem][SS] defines some different merge policies. By default `stacked_config` will use the
+SuperStack::MergePolicies::FullMergePolicy that merges hashes and arrays at all levels. But you can choose to completely
+change the merge behaviour by changing the merge policy. See [super_stack gem][SS] documentation for other merge
+policies.
+
+Merge policies can be changed either at orchestrator level or at layer level by setting the merge_policy property.
+
+This is actually exactly what happens when the `config-override` flag is passed on the command line. It triggers the
+change of the merge policy of the extra layer from SuperStack::MergePolicies::FullMergePolicy to
+SuperStack::MergePolicies::OverridePolicy.
 
 ## Contributing
 
