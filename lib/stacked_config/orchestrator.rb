@@ -14,30 +14,6 @@ module StackedConfig
       describes_application executable_name: default_name, app_name: default_name
     end
 
-    def detailed_layers_info
-      info, sep = [], '-' * 80
-      info << sep
-      layers.values.sort {|a, b| a.priority <=> b.priority}.each do |layer|
-        info << layer.name
-        if layer.file_name.nil?
-          info << 'There is no file attached to this level.'
-        else
-          info << "Using '#{layer.file_name}' as config file for this layer."
-        end
-        if layer.empty?
-          info << 'There is no data in this layer'
-        else
-          info << 'This layer contains the following data:'
-          info << layer.to_yaml
-        end
-        info << sep
-      end
-      info.join "\n"
-    end
-
-    def command_line_help
-      command_line_layer.help
-    end
 
     def self.default_executable_name
       File.basename($PROGRAM_NAME).gsub /\.[^\.]+$/, ''
