@@ -54,8 +54,8 @@ if config[:help]
 end
 ```
 
-Try this little script and then create some config files to test how it is handled (see next section to know where to
-create the config files).
+Try this little script and then create some config files to test how it is handled (see [next section]
+(#where-are-my-config-files-) to know where to create the config files).
 
 
 ### Where are my config files ?
@@ -112,14 +112,14 @@ The `add_command_line_section` method supports a parameter to define the name of
 
 By defaut the following command line options are available:
 
-* auto                 Auto mode. Bypasses questions to user. Just provided for convenience. Not used anywhere in the
+* __auto__             Auto mode. Bypasses questions to user. Just provided for convenience. Not used anywhere in the
                        code.
-* simulate             Do not perform the actual underlying actions. Just provided for convenience. Not used anywhere
+* __simulate__         Do not perform the actual underlying actions. Just provided for convenience. Not used anywhere
                        in the code.
-* verbose              Enable verbose mode. Just provided for convenience. Not used anywhere in the code.
-* help                 Displays this help. Just provided for convenience. Not used anywhere in the code.
-* config-file          Specify a config file for the extra layer.
-* config-override      If specified override all other config (actually changes the merge policy see [below]
+* __verbose__          Enable verbose mode. Just provided for convenience. Not used anywhere in the code.
+* __help__             Displays this help. Just provided for convenience. Not used anywhere in the code.
+* __config-file__      Specify a config file for the extra layer.
+* __config-override__  If specified override all other config (actually changes the merge policy [see below]
                        (#changing-the-way-things-are-merged)).
 
 Flags that are said "Just provided for convenience. Not used anywhere in the code." are just there because they are
@@ -129,6 +129,21 @@ standard options and thus you can easily test in your code.
 puts "Something very important" if config[:verbose]
 ```
 
+`stacked_config` provides a convenient method to display the command line help every user expects from a decent script:
+
+```ruby
+require 'stacked_config'
+
+config = StackedConfig::Orchestrator.new
+
+if config[:help]
+    # command_line_help will provide a formatted help to display on the command line
+    puts config.command_line_help
+    exit 0
+end
+
+# ... do something else
+```
 
 
 ### Advanced usage
@@ -138,12 +153,12 @@ puts "Something very important" if config[:verbose]
 The way layers are processed is done according to their priority. By default the existing layers have the following
 priorities:
 
-* The system layer has a priority of 10
-* The global layer has a priority of 20
-* The user layer has a priority of 30
-* The extra layer has a priority of 40
-* The command-line layer has a priority of 100
-* The override layer has a priority of 1000
+* The system layer has a priority of __10__
+* The global layer has a priority of __20__
+* The user layer has a priority of __30__
+* The extra layer has a priority of __40__
+* The command-line layer has a priority of __100__
+* The override layer has a priority of __1000__
 
 But imagine you want to say that no-one could override properties defined at the system and global layer even from the
 command-line, then you just have to change the priorities of those 2 layers.
@@ -157,7 +172,7 @@ config.global_layer.priority = 1600
 ```
 
 By doing such the system and global layers will be evaluated after the command line layer and therefore properties set
-in those files cannot be overridden even at command line level.
+in those files cannot be overridden even at command line level thanks to [super_stack][SS] mechanisms.
 
 
 #### Adding extra layers
