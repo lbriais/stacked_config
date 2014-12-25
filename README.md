@@ -113,6 +113,42 @@ The `add_command_line_section` method supports a parameter to define the name of
 
 ### Advanced usage
 
+#### Re-ordering layers
+
+The way layers are processed is done according to their priority. By default the existing layers have the following
+priorities:
+
+* The system layer has a priority of 10
+* The global layer has a priority of 20
+* The user layer has a priority of 30
+* The extra layer has a priority of 40
+* The command-line layer has a priority of 100
+* The override layer has a priority of 1000
+
+But imagine you want to say that no-one could override properties defined at the system and global layer even from the
+command-line, then you just have to change the priorities of those 2 layers.
+
+```ruby
+require 'stacked_config'
+
+config = StackedConfig::Orchestrator.new
+config.system_layer.priority = 1500
+config.global_layer.priority = 1600
+```
+
+By doing such the system and global layers will be evaluated after the command line layer and therefore properties set
+in those files cannot be overridden even at command line level.
+
+
+#### Adding extra layers
+
+Imagine you want to add a specific layer in your config, coming from let's say a web-service or a database, you may
+create your own layers for this purpose. Have a look at [super_stack gem][SS] for further info about how to create
+layers.
+
+But basically just create your new layer, gives it a priority and add it to the orchestrator.
+
+
 ## Contributing
 
 1. [Fork it] ( https://github.com/lbriais/stacked_config/fork )
