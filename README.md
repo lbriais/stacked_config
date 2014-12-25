@@ -15,7 +15,7 @@ script. By default, it will handle already few config layers:
 The different layers are evaluated by default in that order using the [super_stack gem][SS] (Please read for more
 detail).
 
-All the config files are following the [YAML][yaml] syntax.
+All the config files are following the [YAML] syntax.
 
 ## Installation
 
@@ -79,7 +79,7 @@ As you can see in the sources, paths are expressed using kind of 'templates', wh
 The search of the config files is done according to the order defined in sources just above and then extensions
 are tried according to the extensions just above in that exact order.
 
-__The first file matching for a particular level is used !__ And there is only one.
+__The first file matching for a particular level is used !__ And there can be only one per level.
 
 Thus according to the rules above, and assuming my script is named `my_script.rb` if the two following files exists at
 user config level, only the first is taken in account:
@@ -90,6 +90,25 @@ user config level, only the first is taken in account:
 
 ### Script command line options
 
+`stacked_config` uses internally the fantastic [Slop] gem to manage options coming from
+the command line.
+
+To define your options the command-line layer exposes a `slop_definition` method that enables
+to directly configure slop.
+
+For most usages you can use the higher level method `add_command_line_section` from the orchestrator.
+
+```ruby
+require 'stacked_config'
+
+config = StackedConfig::Orchestrator.new
+config.add_command_line_section do |slop|
+  slop.on :u, :useless, 'Stupid option', :argument => false
+  slop.on :an_int, 'Stupid option with integer argument', :argument => true, :as => Integer
+end
+```
+
+The `add_command_line_section` method supports a parameter to define the name of the section.
 
 
 ### Advanced usage
@@ -106,4 +125,5 @@ user config level, only the first is taken in account:
 [SystemLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/system_layer.rb "the system layer places where config files are searched"
 [GlobalLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/global_layer.rb "the global layer places where config files are searched"
 [UserLayer]:   https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
-[yaml]:        http://www.yaml.org/    "The Yaml official site"
+[YAML]:        http://www.yaml.org/    "The Yaml official site"
+[Slop]:        https://rubygems.org/gems/slop   "The Slop gem"
