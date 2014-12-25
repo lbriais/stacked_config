@@ -57,6 +57,21 @@ end
 Try this little script and then create some config files to test how it is handled (see [next section]
 (#where-are-my-config-files-) to know where to create the config files).
 
+You are supposed to access the merged config through the `[] method of the orchestrator` (config[] in the previous
+example). Still you can modify any of the layers automatically created, you are not supposed to, and if you modify or
+add a new property (a so called "runtime property"), it will actually set the property in the `override` layer.
+
+That's why you can always come back to the initial state by calling `reset` on the orchestrator. This actually just
+clears the override layer.
+
+Every layer is accessible through the following orchestrator properties:
+
+* system_layer
+* global_layer
+* user_layer
+* provided_config_file_layer
+* command_line_layer
+* write_layer
 
 ### Where are my config files ?
 
@@ -186,23 +201,23 @@ But basically just create your new layer, gives it a priority and add it to the 
 #### Changing the way things are merged
 
 The [super_stack gem][SS] defines some different merge policies. By default `stacked_config` will use the
-SuperStack::MergePolicies::FullMergePolicy that merges hashes and arrays at all levels. But you can choose to completely
+`SuperStack::MergePolicies::FullMergePolicy` that merges hashes and arrays at all levels. But you can choose to completely
 change the merge behaviour by changing the merge policy. See [super_stack gem][SS] documentation for other merge
 policies.
 
 Merge policies can be changed either at orchestrator level or at layer level by setting the merge_policy property.
 
 This is actually exactly what happens when the `config-override` flag is passed on the command line. It triggers the
-change of the merge policy of the extra layer from SuperStack::MergePolicies::FullMergePolicy to
-SuperStack::MergePolicies::OverridePolicy.
+change of the merge policy of the extra layer from `SuperStack::MergePolicies::FullMergePolicy` to
+`SuperStack::MergePolicies::OverridePolicy`.
 
 ## Contributing
 
-1. [Fork it] ( https://github.com/lbriais/stacked_config/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. [Fork it] ( https://github.com/lbriais/stacked_config/fork ), clone your fork.
+2. Create your feature branch (`git checkout -b my-new-feature`) and develop your super extra feature.
+3. Commit your changes (`git commit -am 'Add some feature'`).
+4. Push to the branch (`git push origin my-new-feature`).
+5. Create a Pull Request.
 
 [SS]:          https://github.com/lbriais/super_stack       "Super Stack gem"
 [SystemLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/system_layer.rb "the system layer places where config files are searched"
