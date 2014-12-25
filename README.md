@@ -124,7 +124,8 @@ To even have a better command line help displayed you can provide optional infor
 * The __application version__ through the `app_version` orchestrator property.
 * The __application description__ through the `app_description` orchestrator property.
 
-You could as well do this with the `describes_application` method (see [complete example]()).
+You could as well do this with the `describes_application` method (see [complete example]
+(#a-complete-example-of-a-program-using-this-gem) at the end of this page).
 
 ```ruby
 require 'stacked_config'
@@ -261,18 +262,19 @@ But basically just create your new layer, gives it a priority and add it to the 
 
 ### Changing the way things are merged
 
-The [super_stack gem][SS] defines some different merge policies. By default `stacked_config` will use the
-`SuperStack::MergePolicies::FullMergePolicy` that merges hashes and arrays at all levels. But you can choose to completely
-change the merge behaviour by changing the merge policy. See [super_stack gem][SS] documentation for other merge
-policies.
+The [super_stack gem][SS] defines various merge policies. By default `stacked_config` will use the
+`SuperStack::MergePolicies::FullMergePolicy` that merges hashes and arrays at all levels. But you can choose to
+completely change the merge behaviour by changing the merge policy. See [super_stack gem][SS] documentation for other
+available merge policies.
 
-Merge policies can be changed either at orchestrator level or at layer level by setting the merge_policy property.
+Merge policies can be changed either at orchestrator level (globally) or at layer level (for the layer only) by setting
+the `merge_policy` property.
 
 This is actually exactly what happens when the `config-override` flag is passed on the command line. It triggers the
 change of the merge policy of the extra layer from `SuperStack::MergePolicies::FullMergePolicy` to
 `SuperStack::MergePolicies::OverridePolicy`.
 
-## A complete example of a program using `stacked_config`
+## A complete example of a program using this Gem
 
 Save the following file somewhere as `example.rb`.
 
