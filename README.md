@@ -431,4 +431,4 @@ This layer contains the following data:
 [UserLayer]:   https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
 [YAML]:        http://www.yaml.org/                         "The Yaml official site"
 [Slop]:        https://rubygems.org/gems/slop               "The Slop gem"
-[EAH]:         https://rubygems.org/gems/easy_app_helper    "The EasyAppHelper gem"
+[EAH]:         https://github.com/lbriais/easy_app_helper   "The EasyAppHelper gem"
