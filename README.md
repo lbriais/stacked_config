@@ -21,6 +21,9 @@ detail). The `StackedConfig::Orchestrator` will expose a merged view of all its 
 
 All the config files are following the [YAML] syntax.
 
+__If you're looking for a complete solution for your scripts, including some logging features, then you are probably
+looking for the [easy_app_helper Gem][EAH]
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -427,3 +430,4 @@ This layer contains the following data:
 [UserLayer]:   https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
 [YAML]:        http://www.yaml.org/    "The Yaml official site"
 [Slop]:        https://rubygems.org/gems/slop   "The Slop gem"
+[EAH]:         https://rubygems.org/gems/easy_app_helper     "The EasyAppHelper gem"
