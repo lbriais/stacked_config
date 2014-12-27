@@ -425,9 +425,10 @@ This layer contains the following data:
 5. Create a Pull Request.
 
 [SS]:          https://github.com/lbriais/super_stack       "Super Stack gem"
+[SC]:          https://github.com/lbriais/stacked_config    "The stacked_config Gem"
 [SystemLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/system_layer.rb "the system layer places where config files are searched"
 [GlobalLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/global_layer.rb "the global layer places where config files are searched"
 [UserLayer]:   https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
-[YAML]:        http://www.yaml.org/    "The Yaml official site"
-[Slop]:        https://rubygems.org/gems/slop   "The Slop gem"
-[EAH]:         https://rubygems.org/gems/easy_app_helper     "The EasyAppHelper gem"
+[YAML]:        http://www.yaml.org/                         "The Yaml official site"
+[Slop]:        https://rubygems.org/gems/slop               "The Slop gem"
+[EAH]:         https://rubygems.org/gems/easy_app_helper    "The EasyAppHelper gem"
