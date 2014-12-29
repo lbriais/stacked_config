@@ -35,6 +35,13 @@ module StackedConfig
       USER_CONFIG_ROOT[os_flavour]
     end
 
+    def self.gem_config_root
+      return nil unless $PROGRAM_NAME
+      Gem.loaded_specs.each_pair do |name, spec|
+
+      end
+    end
+
 
     def supported_oses
       StackedConfig::SourceHelper.supported_oses
