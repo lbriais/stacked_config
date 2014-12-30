@@ -40,6 +40,7 @@ module StackedConfig
       Gem.loaded_specs.each_pair do |name, spec|
 
       end
+      'nice'
     end
 
 
