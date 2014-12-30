@@ -37,10 +37,11 @@ module StackedConfig
 
     def self.gem_config_root
       return nil unless $PROGRAM_NAME
-      Gem.loaded_specs.each_pair do |name, spec|
 
+      Gem.loaded_specs.each_pair do |name, spec|
+        program_name = Gem.bin_path spec.name, File.basename($PROGRAM_NAME), spec.version
+        return spec.full_gem_path if program_name
       end
-      'nice'
     end
 
 
