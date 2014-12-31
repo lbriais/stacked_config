@@ -70,7 +70,7 @@ module StackedConfig
       places.each do |path_array|
         # Perform path substitutions
         potential_config_file = File.join(path_array.map { |path_part| perform_substitutions path_part })
-        return nil unless potential_config_file
+        return unless potential_config_file
         # Try to find config file with extension
         EXTENSIONS.each do |extension|
           file  = potential_config_file.gsub '##EXTENSION##', extension

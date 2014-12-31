@@ -3,8 +3,8 @@ module StackedConfig
 
     include StackedConfig::ProgramDescriptionHelper
 
-    attr_reader :system_layer, :global_layer, :user_layer, :command_line_layer,
-                :provided_config_file_layer
+    attr_reader :system_layer, :global_layer, :gem_layer, :user_layer,
+                :command_line_layer, :provided_config_file_layer
 
     def initialize
       super
@@ -31,11 +31,14 @@ module StackedConfig
       # The global level
       @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 20
 
+      # The gem level
+      @gem_layer = setup_layer StackedConfig::Layers::GemLayer, 'Gem configuration level', 30
+
       # The user level
-      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 30
+      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 40
 
       # The specifically provided config file level
-      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 40
+      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 50
 
       # The layer to write something
       override_layer = setup_layer SuperStack::Layer, 'Overridden configuration level', 1000

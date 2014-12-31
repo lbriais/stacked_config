@@ -55,16 +55,20 @@ describe StackedConfig::Orchestrator do
       expect(subject.global_layer).to be subject.to_a[1]
     end
 
-    it 'should have the user layer evaluated in third' do
-      expect(subject.user_layer).to be subject.to_a[2]
+    it 'should have the gem layer evaluated in third' do
+      expect(subject.gem_layer).to be subject.to_a[2]
     end
 
-    it 'should have the specific-file layer evaluated in fourth' do
-      expect(subject.provided_config_file_layer).to be subject.to_a[3]
+    it 'should have the user layer evaluated in fourth' do
+      expect(subject.user_layer).to be subject.to_a[3]
     end
 
-    it 'should have the command-line layer evaluated in fifth' do
-      expect(subject.command_line_layer).to be subject.to_a[4]
+    it 'should have the specific-file layer evaluated in fifth' do
+      expect(subject.provided_config_file_layer).to be subject.to_a[4]
+    end
+
+    it 'should have the command-line layer evaluated in sixth' do
+      expect(subject.command_line_layer).to be subject.to_a[5]
     end
 
     it 'should have the writable layer evaluated last' do
