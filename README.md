@@ -4,9 +4,7 @@
 
 If you need to manage config files accross the system, some of them belonging to the administrator some to the user
 running the application, some coming from the command line and more, __[This Gem]
-(http://rubygems.org/gems/stacked_config) is made for you__ ! But if you are looking for a complete solution to help
-you building command-line scripts, then you should have a look at [easy_app_helper Gem][EAH], which actually relies on
-this one and adds some extra features like logging...
+(http://rubygems.org/gems/stacked_config) is made for you__ !
 
 The purpose of this gem is to provide a __simple__ way to handle the __inheritance__ of __config files__ for a ruby
 script. By default, it will handle already few config layers:
@@ -25,7 +23,7 @@ detail). The `StackedConfig::Orchestrator` will expose a merged view of all its 
 All the config files are following the [YAML] syntax.
 
 __If you're looking for a complete solution for your scripts, including some logging features, then you are probably
-looking for the [easy_app_helper Gem][EAH], which is internally using [this one][SC].__
+looking for the [easy_app_helper Gem][EAH], which is internally relying on [this one][SC].__
 
 ## Installation
 
