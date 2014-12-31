@@ -4,7 +4,9 @@
 
 If you need to manage config files accross the system, some of them belonging to the administrator some to the user
 running the application, some coming from the command line and more, __[This Gem]
-(http://rubygems.org/gems/stacked_config) is made for you__ !
+(http://rubygems.org/gems/stacked_config) is made for you__ ! But if you are looking for a complete solution to help
+you building command-line scripts, then you should have a loot at [easy_app_helper Gem][EAH], which actually relies on
+this one and adds some extra features like logging...
 
 The purpose of this gem is to provide a __simple__ way to handle the __inheritance__ of __config files__ for a ruby
 script. By default, it will handle already few config layers:
