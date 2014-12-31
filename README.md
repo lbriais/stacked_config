@@ -11,6 +11,7 @@ script. By default, it will handle already few config layers:
 
 * The __system layer__, which is a level common to all applications using this gem.
 * The __global layer__, which is the level to declare options for all users that use the ruby script using this gem.
+* The __gem layer__, which is the layer that will enable a gem to embed its own config.
 * The __user layer__, which is the level, where a user can set options for the ruby script using this gem.
 * The __extra layer__, which provides the possibility to specify another config file from the command line.
 * The __command-line layer__, which provides the ability to specify options from the command line.
@@ -89,19 +90,22 @@ doing things...
 
 * Sources for the [system layer][SystemLayer]
 * Sources for the [global layer][GlobalLayer]
+* Sources for the [gem layer][GemLayer]
 * Sources for the [user layer][UserLayer]
 
 As you can see in the sources, paths are expressed using kind of 'templates', which meaning should be obvious
 
 * `##SYSTEM_CONFIG_ROOT##` is where the system config is stored. On Unix systems, it should be `/etc`.
+* `##USER_CONFIG_ROOT##` is where the user config is stored. On Unix systems, it should be your `$HOME` directory.
+* `##GEM_CONFIG_ROOT##` is the path to the "current" Gem root. The current gem being the one containing the
+  currently executing script.
 * `##PROGRAM_NAME##` is by default the name of the script you are running (with no extension). You can if you want
   change this name at runtime. __Changing it (using the `executable_name` orchestrator property ) will trigger a
   re-search and reload of all the config files__.
-* `##USER_CONFIG_ROOT##` is where the user config is stored. On Unix systems, it should be your `$HOME` directory.
 * `##EXTENSION##` is one of the following extensions : `conf CONF cfg CFG yml YML yaml YAML`.
 
-The search of the config files is done according to the order defined in sources just above and then extensions
-are tried according to the extensions just above in that exact order.
+The search of the config files for a layer is done according to the order defined in sources just above and then
+extensions are tried according to the extensions just above in that exact order.
 
 __The first file matching for a particular level is used ! And there can be only one per level.__
 
@@ -235,8 +239,9 @@ priorities:
 
 * The system layer has a priority of __10__
 * The global layer has a priority of __20__
-* The user layer has a priority of __30__
-* The extra layer has a priority of __40__
+* The global layer has a priority of __30__
+* The user layer has a priority of __40__
+* The extra layer has a priority of __50__
 * The command-line layer has a priority of __100__
 * The override layer has a priority of __1000__
 
@@ -387,6 +392,10 @@ Global configuration level
 There is no file attached to this level.
 There is no data in this layer
 --------------------------------------------------------------------------------
+Gem configuration level
+There is no file attached to this level.
+There is no data in this layer
+--------------------------------------------------------------------------------
 User configuration level
 There is no file attached to this level.
 There is no data in this layer
@@ -428,6 +437,7 @@ This layer contains the following data:
 [SC]:          https://github.com/lbriais/stacked_config    "The stacked_config Gem"
 [SystemLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/system_layer.rb "the system layer places where config files are searched"
 [GlobalLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/global_layer.rb "the global layer places where config files are searched"
+[GemLayer]:    https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/gem_layer.rb "the gem layer places where config files are searched"
 [UserLayer]:   https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
 [YAML]:        http://www.yaml.org/                         "The Yaml official site"
 [Slop]:        https://rubygems.org/gems/slop               "The Slop gem"
