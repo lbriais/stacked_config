@@ -9,9 +9,11 @@ describe StackedConfig::Orchestrator do
     gem_path = File.expand_path '../..', __FILE__
     altered_sys_conf_root = File.join gem_path, 'test', os.to_s, StackedConfig::SourceHelper::SYSTEM_CONFIG_ROOT[os]
     altered_user_conf_root = File.join gem_path, 'test', 'user'
+    altered_gem_conf_root = File.join(gem_path, 'test', 'tstgem')
 
     allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root }
     allow(StackedConfig::SourceHelper).to receive(:user_config_root) { altered_user_conf_root }
+    allow(StackedConfig::SourceHelper).to receive(:gem_config_root) { altered_gem_conf_root }
 
     StackedConfig::Orchestrator.new
   }
@@ -19,7 +21,7 @@ describe StackedConfig::Orchestrator do
   it 'should have multiple layers' do
     expect(subject.layers.length > 0).to be_truthy
     # puts '#' * 80
-    # puts subject.layers.to_yaml
+    # puts subject.detailed_layers_info
     # puts '#' * 80
     # puts subject[].to_yaml
     # puts '#' * 80
