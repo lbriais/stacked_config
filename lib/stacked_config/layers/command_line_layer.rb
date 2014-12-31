@@ -13,8 +13,7 @@ module StackedConfig
       def load(*args)
         slop_definition.parse
         slop_definition.banner = build_banner
-        clear
-        merge! slop_definition.to_hash.delete_if {|k,v| v.nil?}
+        replace slop_definition.to_hash.delete_if {|k,v| v.nil?}
       end
 
       def possible_options
