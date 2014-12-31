@@ -39,11 +39,15 @@ module StackedConfig
       return nil unless $PROGRAM_NAME
 
       Gem.loaded_specs.each_pair do |name, spec|
-        program_name = Gem.bin_path spec.name, File.basename($PROGRAM_NAME), spec.version
-        return spec.full_gem_path if program_name
+        executable_basename = File.basename($PROGRAM_NAME)
+        return spec.full_gem_path if spec.executables.include? executable_basename
       end
+      nil
     end
 
+    def gem_config_root
+      StackedConfig::SourceHelper.gem_config_root
+    end
 
     def supported_oses
       StackedConfig::SourceHelper.supported_oses
@@ -65,9 +69,8 @@ module StackedConfig
       @file_name = nil
       places.each do |path_array|
         # Perform path substitutions
-        potential_config_file = File.join(path_array.map do |path_part|
-          perform_substitutions path_part
-        end)
+        potential_config_file = File.join(path_array.map { |path_part| perform_substitutions path_part })
+        return nil unless potential_config_file
         # Try to find config file with extension
         EXTENSIONS.each do |extension|
           file  = potential_config_file.gsub '##EXTENSION##', extension
@@ -88,6 +91,11 @@ module StackedConfig
 
       exec_name = manager.nil? ? StackedConfig::Orchestrator.default_executable_name : manager.executable_name
       res.gsub! '##PROGRAM_NAME##', exec_name
+      if res =~ /##GEM_CONFIG_ROOT##/
+        return nil unless gem_config_root
+        res.gsub! '##GEM_CONFIG_ROOT##', gem_config_root
+      end
+
       res
     end
 
