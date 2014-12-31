@@ -28,11 +28,11 @@ module StackedConfig
       # The system level
       @system_layer = setup_layer StackedConfig::Layers::SystemLayer, 'System-wide configuration level', 10
 
-      # The global level
-      @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 20
-
       # The gem level
-      @gem_layer = setup_layer StackedConfig::Layers::GemLayer, 'Gem configuration level', 30
+      @gem_layer = setup_layer StackedConfig::Layers::GemLayer, 'Gem configuration level', 20
+
+      # The global level
+      @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 30
 
       # The user level
       @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 40

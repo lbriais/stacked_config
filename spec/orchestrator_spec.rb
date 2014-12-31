@@ -53,12 +53,12 @@ describe StackedConfig::Orchestrator do
       expect(subject.system_layer).to be subject.to_a.first
     end
 
-    it 'should have the global layer evaluated in second' do
-      expect(subject.global_layer).to be subject.to_a[1]
+    it 'should have the gem layer evaluated in second' do
+      expect(subject.gem_layer).to be subject.to_a[1]
     end
 
-    it 'should have the gem layer evaluated in third' do
-      expect(subject.gem_layer).to be subject.to_a[2]
+    it 'should have the global layer evaluated in third' do
+      expect(subject.global_layer).to be subject.to_a[2]
     end
 
     it 'should have the user layer evaluated in fourth' do
