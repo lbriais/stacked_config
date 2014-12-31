@@ -2,7 +2,7 @@ require 'spec_helper'
 
 
 describe StackedConfig::Layers::GemLayer do
-  # subject is a modified SystemLayer to redirect system_config_root to the test directory
+  # subject is a modified SystemLayer to redirect gem_config_root to the test directory
   subject {
     s = StackedConfig::Layers::GemLayer.new
     gem_path = File.expand_path '../..', __FILE__
