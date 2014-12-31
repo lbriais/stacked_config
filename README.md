@@ -22,8 +22,8 @@ detail). The `StackedConfig::Orchestrator` will expose a merged view of all its 
 
 All the config files are following the [YAML] syntax.
 
-__If you're looking for a complete solution for your scripts, including some logging features, then you are probably
-looking for the [easy_app_helper Gem][EAH], which is internally relying on [this one][SC].__
+__If you're looking for a complete solution for your command line scripts, including some logging features, then you
+are probably looking for the [easy_app_helper Gem][EAH], which is internally relying on [this one][SC].__
 
 ## Installation
 
