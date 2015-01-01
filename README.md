@@ -10,7 +10,8 @@ The purpose of this gem is to provide a __simple__ way to handle the __inheritan
 script. By default, it will handle already few config layers:
 
 * The __system layer__, which is a level common to all applications using this gem.
-* The __gem layer__, which is the layer that will enable a gem to embed its own config.
+* The __gem layer__, which is the layer that will enable a gem to embed its own config. __You may consider this level
+  as the layer where you will set the default values for your properties__.
 * The __global layer__, which is the level to declare options for all users that use the ruby script using this gem.
 * The __user layer__, which is the level, where a user can set options for the ruby script using this gem.
 * The __extra layer__, which provides the possibility to specify another config file from the command line.
@@ -122,6 +123,8 @@ user config level, only the first is taken in account:
 `stacked_config` uses internally the fantastic [Slop] gem to manage options coming from the command line within the
 command line layer. This layer will be simply part of the complete config that the orchestrator exposes.
 
+`stacked_config` is using the v3 branch of [Slop] and has not yet been adapted to the newest v4 branch.
+
 #### Command line help
 
 You can easily display a help using the orchestrator `command_line_help` method.
@@ -226,6 +229,7 @@ end
 ```
 
 The `add_command_line_section` method supports a parameter to define the name of the section.
+Check [Slop] documentation for further information.
 
 __Of course adding new command line options will adapt the display of the `command_line_help` method of the
 orchestrator__.
