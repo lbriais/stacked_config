@@ -9,11 +9,11 @@ running the application, some coming from the command line and more, __[This Gem
 The purpose of this gem is to provide a __simple__ way to handle the __inheritance__ of __config files__ for a ruby
 script. By default, it will handle already few config layers:
 
-* The __system layer__, which is a level common to all applications using this gem.
+* The __system layer__, which is a layer common to all applications using this gem.
 * The __gem layer__, which is the layer that will enable a gem to embed its own config. __You may consider this level
   as the layer where you will set the default values for your properties__.
-* The __global layer__, which is the level to declare options for all users that use the ruby script using this gem.
-* The __user layer__, which is the level, where a user can set options for the ruby script using this gem.
+* The __global layer__, which is the layer to declare options for all users that use the ruby script using this gem.
+* The __user layer__, which is the layer, where a user can set options for the ruby script using this gem.
 * The __extra layer__, which provides the possibility to specify another config file from the command line.
 * The __command-line layer__, which provides the ability to specify options from the command line.
 * The __override layer__, which will contain all modifications done to the config at run time.
@@ -236,6 +236,9 @@ orchestrator__.
 
 
 ## Advanced usage
+
+`stacked_config` is internally relying on [super_stack gem][SS] for the management of the layers, their priorities
+and the way they are merged to provide the "merged config". Check its documentation for further info.
 
 ### Re-ordering layers
 
