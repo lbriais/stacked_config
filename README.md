@@ -14,7 +14,7 @@ script. By default, it will handle already few config layers:
   as the layer where you will set the default values for your properties__.
 * The __global layer__, which is the layer to declare options for all users that use the ruby script using this gem.
 * The __user layer__, which is the layer, where a user can set options for the ruby script using this gem.
-* The __extra layer__, which provides the possibility to specify another config file from the command line.
+* The __extra layer__, which provides the possibility to specify another config file from the config itself.
 * The __command-line layer__, which provides the ability to specify options from the command line.
 * The __override layer__, which will contain all modifications done to the config at run time.
 
@@ -237,8 +237,8 @@ orchestrator__.
 
 ## Advanced usage
 
-`stacked_config` is internally relying on [super_stack gem][SS] for the management of the layers, their priorities
-and the way they are merged to provide the "merged config". Check its documentation for further info.
+`stacked_config` is internally relying on the [super_stack Gem][SS] for the management of the layers, their priorities
+and the way they are merged in order to provide the "merged config". Check its documentation for further info.
 
 ### Re-ordering layers
 
@@ -271,7 +271,7 @@ in those files cannot be overridden even at command line level thanks to [super_
 ### Adding extra layers
 
 Imagine you want to add a specific layer in your config, coming from let's say a web-service or a database, you may
-create your own layers for this purpose. Have a look at [super_stack gem][SS] for further info about how to create
+create your own layers for this purpose. Have a look at [super_stack Gem][SS] for further info about how to create
 layers.
 
 But basically just create your new layer, gives it a priority and add it to the orchestrator.
