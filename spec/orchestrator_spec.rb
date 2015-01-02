@@ -29,19 +29,19 @@ describe StackedConfig::Orchestrator do
   end
 
 
-  context 'when changing the executable_name' do
+  context 'when changing the config_file_base_name' do
 
     it 'should reload all config files' do
       expect(subject[:user_property]).not_to be_nil
       expect(subject[:weird_property]).to be_nil
-      subject.executable_name = 'weird_name'
+      subject.config_file_base_name = 'weird_name'
       expect(subject[:user_property]).to be_nil
       expect(subject[:weird_property]).not_to be_nil
     end
 
     it 'should keep the modified values' do
       subject[:modified_value] = :pipo
-      subject.executable_name = 'weird_name'
+      subject.config_file_base_name = 'weird_name'
       expect(subject[:modified_value]).not_to be_nil
     end
 

@@ -10,12 +10,12 @@ module StackedConfig
       super
       self.merge_policy = SuperStack::MergePolicies::FullMergePolicy
       setup_layers
-      default_name = self.class.default_executable_name
-      describes_application executable_name: default_name, app_name: default_name
+      default_name = self.class.default_config_file_base_name
+      describes_application config_file_base_name: default_name, app_name: default_name
     end
 
 
-    def self.default_executable_name
+    def self.default_config_file_base_name
       File.basename($PROGRAM_NAME).gsub /\.[^\.]+$/, ''
     end
 

@@ -58,7 +58,7 @@ module StackedConfig
         if manager.nil?
           'No banner unless added to a manager !'
         else
-          "\nUsage: #{manager.executable_name} [options]\n#{manager.app_name} Version: #{manager.app_version}\n\n#{manager.app_description}"
+          "\nUsage: #{manager.config_file_base_name} [options]\n#{manager.app_name} Version: #{manager.app_version}\n\n#{manager.app_description}"
         end
       end
 

@@ -102,7 +102,7 @@ As you can see in the sources, paths are expressed using kind of 'templates', wh
 * `##GEM_CONFIG_ROOT##` is the path to the "current" Gem root. The current gem being the one containing the
   currently executing script.
 * `##PROGRAM_NAME##` is by default the name of the script you are running (with no extension). You can if you want
-  change this name at runtime. __Changing it (using the `executable_name` orchestrator property ) will trigger a
+  change this name at runtime. __Changing it (using the `config_file_base_name` orchestrator property ) will trigger a
   re-search and reload of all the config files__.
 * `##EXTENSION##` is one of the following extensions : `conf CONF cfg CFG yml YML yaml YAML`.
 
