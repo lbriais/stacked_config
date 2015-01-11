@@ -12,11 +12,6 @@ module StackedConfig
         unix: '/etc'
     }
 
-    USER_CONFIG_ROOT = {
-        windows: ENV['APPDATA'],
-        unix: ENV['HOME']
-    }
-
     EXTENSIONS = %w(conf CONF cfg CFG yml YML yaml YAML)
 
     def self.os_flavour
@@ -32,7 +27,7 @@ module StackedConfig
     end
 
     def self.user_config_root
-      USER_CONFIG_ROOT[os_flavour]
+      Dir.home
     end
 
     def self.gem_config_root
