@@ -103,7 +103,8 @@ As you can see in the sources, paths are expressed using kind of 'templates', wh
   currently executing script.
 * `##PROGRAM_NAME##` is by default the name of the script you are running (with no extension). You can if you want
   change this name at runtime. __Changing it (using the `config_file_base_name` orchestrator property ) will trigger a
-  re-search and reload of all the config files__.
+  re-search and reload of all the config files__. `config_file_base_name` defines the base name to search for config
+  files accross the system. by default the name of the gem will be used.
 * `##EXTENSION##` is one of the following extensions : `conf CONF cfg CFG yml YML yaml YAML`.
 
 The search of the config files for a layer is done according to the order defined in sources just above and then
