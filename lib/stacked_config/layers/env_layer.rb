@@ -3,7 +3,6 @@ module StackedConfig
 
     class EnvLayer < SuperStack::Layer
 
-
       DEFAULT_LAYER_NAME = 'ENV layer'
 
       def initialize(filter=nil)
@@ -11,10 +10,8 @@ module StackedConfig
         @name = DEFAULT_LAYER_NAME
       end
 
-
       def load
         ENV.each_pair { |k,v|
-
           if @filter.is_a?(Array) and !@filter.include?(k)
             next
           end

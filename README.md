@@ -118,6 +118,23 @@ user config level, only the first is taken in account:
 * `~/.my_script.yml`
 * `~/.config/my_script.conf`
 
+### ENV variables
+`stacked_config` can read information from your ENV variables thanks to the dedicated ENV layer. This layer is unset by default,
+ it is up to you to add it to your application, due to the fact that you will use it mostly with an optional filter:
+
+```ruby
+require 'stacked_config'
+
+config = StackedConfig::Orchestrator.new
+envLayer =  StackedConfig::Layers::EnvLayer.new(optional_filter)
+config.add_layer(envLayer)
+envLayer.priority = 80
+```
+The constructor parameter __optional_filter__ aims at filtering the ENV variables:
+
+* if nil, all the ENV[] content will be added to the ENV layer
+* it could be an array of accepted names of variables. ex: _StackedConfig::Layers::EnvLayer.new(['VAR_NAME_1', 'VAR_NAME_2'])_
+* it could be a regexp that variables names must match. ex: _StackedConfig::Layers::EnvLayer.new(/somePattern/)_
 
 ### Script command line options
 
