@@ -43,7 +43,7 @@ describe StackedConfig::Layers::EnvLayer do
 
     end
 
-    it 'should filter according a String if only value is requested' do
+    it 'should filter according a String if only one value is requested' do
       layer = StackedConfig::Layers::EnvLayer.new(STRING_FILTER)
       layer.load
       expect(layer['StackedConfig::Layers::EnvLayer::VAR1']).to eql 'VALUE1'
