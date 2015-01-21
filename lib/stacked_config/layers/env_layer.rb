@@ -12,7 +12,7 @@ module StackedConfig
       def filter=(filter)
         raise 'Invalid filter' unless [NilClass, String, Array, Regexp].include? filter.class
         @filter = filter
-        reload
+        load
       end
 
       def load(*args)

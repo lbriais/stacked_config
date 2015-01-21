@@ -23,7 +23,6 @@ module StackedConfig
       @env_layer = StackedConfig::Layers::EnvLayer.new filter
       env_layer.name = 'Environment variables level'
       env_layer.priority = priority
-      env_layer.load
       self << env_layer
     end
 

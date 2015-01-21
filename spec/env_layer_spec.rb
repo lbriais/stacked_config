@@ -19,10 +19,8 @@ describe StackedConfig::Layers::EnvLayer do
 
     it 'should contain all ENV values' do
       layer = StackedConfig::Layers::EnvLayer.new
-      layer.load
       expect(layer.to_a).to eq(ENV.to_hash.to_a)
       layer = StackedConfig::Layers::EnvLayer.new NIL_FILTER
-      layer.load
       expect(layer.to_a).to eq(ENV.to_hash.to_a)
     end
 
@@ -34,7 +32,6 @@ describe StackedConfig::Layers::EnvLayer do
 
       it "should contain filtered ENV variables according to the #{filter.class} filter" do
         layer = StackedConfig::Layers::EnvLayer.new(filter)
-        layer.load
         [1,3].each { |i|
           expect(layer["StackedConfig::Layers::EnvLayer::VAR#{i}"]).to eql("VALUE#{i}")
         }
@@ -45,7 +42,6 @@ describe StackedConfig::Layers::EnvLayer do
 
     it 'should filter according a String if only one value is requested' do
       layer = StackedConfig::Layers::EnvLayer.new(STRING_FILTER)
-      layer.load
       expect(layer['StackedConfig::Layers::EnvLayer::VAR1']).to eql 'VALUE1'
       expect(layer.keys.length == 1).to be_truthy
     end
