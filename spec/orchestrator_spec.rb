@@ -116,5 +116,19 @@ describe StackedConfig::Orchestrator do
 
   end
 
+  it 'should not have environment variables by defaut' do
+    expect(subject.env_layer).to be_nil
+  end
+
+  context 'when including environment variables in the config' do
+
+    it 'should be accessible through the #env_layer accessor' do
+      expect {subject.include_env_layer}.not_to raise_error
+      expect(subject.env_layer).not_to be_nil
+      expect(subject.env_layer).to be_a StackedConfig::Layers::EnvLayer
+    end
+
+  end
+
 
 end

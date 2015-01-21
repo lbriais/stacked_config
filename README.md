@@ -15,6 +15,8 @@ script. By default, it will handle already few config layers:
 * The __global layer__, which is the layer to declare options for all users that use the ruby script using this gem.
 * The __user layer__, which is the layer, where a user can set options for the ruby script using this gem.
 * The __extra layer__, which provides the possibility to specify another config file from the config itself.
+* The __enviroment variables layer__, which provides the possibility to include in the config variables coming from
+  the shell variables. See [below](#environment-variables) for more info.
 * The __command-line layer__, which provides the ability to specify options from the command line.
 * The __override layer__, which will contain all modifications done to the config at run time.
 
@@ -81,6 +83,7 @@ Every layer is accessible through the following orchestrator properties:
 * `global_layer`
 * `user_layer`
 * `provided_config_file_layer`
+* `env_layer`
 * `command_line_layer`
 * `write_layer`
 
@@ -118,23 +121,41 @@ user config level, only the first is taken in account:
 * `~/.my_script.yml`
 * `~/.config/my_script.conf`
 
-### ENV variables
-`stacked_config` can read information from your ENV variables thanks to the dedicated ENV layer. This layer is unset by default,
- it is up to you to add it to your application, due to the fact that you will use it mostly with an optional filter:
+
+### Environment variables
+
+`stacked_config` can read information from your ENV variables thanks to the dedicated `env_layer`. __This layer is not
+ created by default__, it is up to you to add it to your application, due to the fact that you will use it mostly
+ with an optional filter and that you may want to add it with different priorities regarding your use case:
 
 ```ruby
 require 'stacked_config'
 
 config = StackedConfig::Orchestrator.new
-envLayer =  StackedConfig::Layers::EnvLayer.new(optional_filter)
+env_layer =  StackedConfig::Layers::EnvLayer.new(optional_filter)
 config.add_layer(envLayer)
-envLayer.priority = 80
+env_layer.name = 'Environment variables level'
+env_layer.priority = 60
 ```
-The constructor parameter __optional_filter__ aims at filtering the ENV variables:
+
+Or the exactly same using the convenience method of the orchestrator:
+
+```ruby
+require 'stacked_config'
+
+config = StackedConfig::Orchestrator.new
+config.include_env_layer(optional_filter, optional_priority)
+```
+
+Which does not prevent you changing afterwards its priority using the config's `env_layer` accessor.
+
+The constructor parameter `optional_filter` parameter aims at filtering the ENV variables:
 
 * if nil, all the ENV[] content will be added to the ENV layer
-* it could be an array of accepted names of variables. ex: _StackedConfig::Layers::EnvLayer.new(['VAR_NAME_1', 'VAR_NAME_2'])_
-* it could be a regexp that variables names must match. ex: _StackedConfig::Layers::EnvLayer.new(/somePattern/)_
+* it can be a single string if you want only one variable
+* it could be an array of accepted names of variables. ex: `StackedConfig::Layers::EnvLayer.new 'VAR_NAME_1'`
+  `StackedConfig::Layers::EnvLayer.new ['VAR_NAME_1', 'VAR_NAME_2']`
+* it could be a regexp that variables names must match. ex: `StackedConfig::Layers::EnvLayer.new /somePattern/`
 
 ### Script command line options
 

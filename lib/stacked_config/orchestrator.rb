@@ -3,7 +3,7 @@ module StackedConfig
 
     include StackedConfig::ProgramDescriptionHelper
 
-    attr_reader :system_layer, :global_layer, :gem_layer, :user_layer,
+    attr_reader :system_layer, :global_layer, :gem_layer, :user_layer, :env_layer,
                 :command_line_layer, :provided_config_file_layer
 
     def initialize
@@ -17,6 +17,14 @@ module StackedConfig
 
     def self.default_config_file_base_name
       File.basename($PROGRAM_NAME).gsub /\.[^\.]+$/, ''
+    end
+
+    def include_env_layer(filter = nil, priority = 60)
+      @env_layer = StackedConfig::Layers::EnvLayer.new filter
+      env_layer.name = 'Environment variables level'
+      env_layer.priority = priority
+      env_layer.load
+      self << env_layer
     end
 
     private
