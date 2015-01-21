@@ -3,24 +3,36 @@ module StackedConfig
 
     class EnvLayer < SuperStack::Layer
 
-      DEFAULT_LAYER_NAME = 'ENV layer'
+      attr_reader :filter
 
       def initialize(filter=nil)
-        @filter = filter
-        @name = DEFAULT_LAYER_NAME
+        self.filter = filter
       end
 
-      def load
-        ENV.each_pair { |k,v|
-          if @filter.is_a?(Array) and !@filter.include?(k)
-            next
-          end
-          if @filter.is_a?(Regexp) and @filter.match(k).nil?
-            next
-          end
+      def filter=(filter)
+        raise 'Invalid filter' unless [NilClass, String, Array, Regexp].include? filter.class
+        @filter = filter
+        reload
+      end
 
-          self[k] = v
-        }
+      def load(*args)
+        self.replace read_filtered_environment
+        @file_name = :none
+        self
+      end
+
+      private
+
+      def read_filtered_environment
+        return ENV.to_hash if filter.nil?
+
+        if filter.is_a? Array
+          ENV.to_hash.select {|k, v| filter.include?(k) }
+        elsif  filter.is_a? Regexp
+          ENV.to_hash.select {|k, v| k =~ filter }
+        elsif filter.is_a? String
+          ENV.to_hash.select {|k, v| k == filter }
+        end
       end
 
     end
