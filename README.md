@@ -151,11 +151,11 @@ Which does not prevent you changing afterwards its priority using the config's `
 
 The constructor parameter `optional_filter` parameter aims at filtering the ENV variables:
 
-* if nil, all the ENV[] content will be added to the ENV layer
+* if nil, all the ENV[] content will be added to the `env_layer`
 * it can be a single string if you want only one variable
-* it could be an array of accepted names of variables. ex: `StackedConfig::Layers::EnvLayer.new 'VAR_NAME_1'`
+* it can be an array of accepted names of variables. ex: `StackedConfig::Layers::EnvLayer.new 'VAR_NAME_1'`
   `StackedConfig::Layers::EnvLayer.new ['VAR_NAME_1', 'VAR_NAME_2']`
-* it could be a regexp that variables names must match. ex: `StackedConfig::Layers::EnvLayer.new /somePattern/`
+* it can be a regexp that variables names have to match. ex: `StackedConfig::Layers::EnvLayer.new /somePattern/`
 
 ### Script command line options
 
