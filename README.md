@@ -152,10 +152,23 @@ Which does not prevent you changing afterwards its priority using the config's `
 The constructor parameter `optional_filter` parameter aims at filtering the ENV variables:
 
 * if nil, all the ENV[] content will be added to the `env_layer`
-* it can be a single string if you want only one variable
-* it can be an array of accepted names of variables. ex: `StackedConfig::Layers::EnvLayer.new 'VAR_NAME_1'`
+* it can be a single string if you want only one variable. ex: `StackedConfig::Layers::EnvLayer.new 'VAR_NAME_1'`
+* it can be an array of accepted names of variables. ex:
   `StackedConfig::Layers::EnvLayer.new ['VAR_NAME_1', 'VAR_NAME_2']`
 * it can be a regexp that variables names have to match. ex: `StackedConfig::Layers::EnvLayer.new /somePattern/`
+
+Once created you could although change the filter anytime:
+
+```ruby
+require 'stacked_config'
+
+config = StackedConfig::Orchestrator.new
+config.include_env_layer
+
+config.env_layer.filter = /my_regexp/
+```
+It will automatically `reload` the `env_layer`.
+
 
 ### Script command line options
 
