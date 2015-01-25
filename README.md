@@ -106,7 +106,7 @@ As you can see in the sources, paths are expressed using kind of 'templates', wh
 
 * `##SYSTEM_CONFIG_ROOT##` is where the system config is stored. On Unix systems, it should be `/etc`.
 * `##USER_CONFIG_ROOT##` is where the user config is stored. On Unix systems, it should be your `$HOME` directory.
-* `##GEM_CONFIG_ROOT##` is the path to the "current" Gem root. The current gem being the one containing the
+* `##EXECUTABLE_GEM_CONFIG_ROOT##` is the path to the "current" Gem root. The current gem being the one containing the
   currently executing script.
 * `##PROGRAM_NAME##` is by default the name of the script you are running (with no extension). You can if you want
   change this name at runtime. __Changing it (using the `config_file_base_name` orchestrator property ) will trigger a

@@ -19,11 +19,15 @@ module StackedConfig
       File.basename($PROGRAM_NAME).gsub /\.[^\.]+$/, ''
     end
 
-    def include_env_layer(filter = nil, priority = 60)
+    def include_env_layer(filter = nil, priority = 70)
       @env_layer = StackedConfig::Layers::EnvLayer.new filter
       env_layer.name = 'Environment variables level'
       env_layer.priority = priority
       self << env_layer
+    end
+
+    def add_gem_layer(gem_name, priority = 30)
+
     end
 
     private
@@ -39,13 +43,13 @@ module StackedConfig
       @executable_gem_layer = setup_layer StackedConfig::Layers::ExecutableGemLayer, 'Gem associated to the executable running configuration level', 20
 
       # The global level
-      @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 30
+      @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 40
 
       # The user level
-      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 40
+      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 50
 
       # The specifically provided config file level
-      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 50
+      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 60
 
       # The layer to write something
       override_layer = setup_layer SuperStack::Layer, 'Overridden configuration level', 1000

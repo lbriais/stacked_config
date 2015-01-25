@@ -40,6 +40,18 @@ module StackedConfig
       nil
     end
 
+    # def self.gem_config_root
+    #   return nil unless gem_name
+    #   Gem.loaded_specs.each_pair do |name, spec|
+    #     return spec.full_gem_path if name == gem_name
+    #   end
+    #   nil
+    # end
+
+    def gem_config_root
+      StackedConfig::SourceHelper.gem_config_root
+    end
+
     def executable_gem_config_root
       StackedConfig::SourceHelper.executable_gem_config_root
     end
@@ -90,10 +102,18 @@ module StackedConfig
 
       exec_name = manager.nil? ? StackedConfig::Orchestrator.default_config_file_base_name : manager.config_file_base_name
       res.gsub! '##PROGRAM_NAME##', exec_name
-      if res =~ /##GEM_CONFIG_ROOT##/
+
+      if res =~ /##EXECUTABLE_GEM_CONFIG_ROOT##/
         return nil unless executable_gem_config_root
-        res.gsub! '##GEM_CONFIG_ROOT##', executable_gem_config_root
+        res.gsub! '##EXECUTABLE_GEM_CONFIG_ROOT##', executable_gem_config_root
       end
+
+      if res =~ /##GEM_CONFIG_ROOT##/
+        return nil unless gem_config_root
+        res.gsub! '##GEM_CONFIG_ROOT##', gem_config_root
+      end
+
+      res.gsub! '##GEM_NAME##', gem_name if self.respond_to? :gem_name
 
       res
     end
