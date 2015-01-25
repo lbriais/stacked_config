@@ -10,14 +10,15 @@ The purpose of this gem is to provide a __simple__ way to handle the __inheritan
 script. By default, it will handle already few config layers:
 
 * The __system layer__, which is a layer common to all applications using this gem.
-* The __gem layer__, which is the layer that will enable a gem to embed its own config. __You may consider this level
-  as the layer where you will set the default values for the properties of your executable__. This layer will get
-  the config of the Gem that hosts the current __executable__.
+* The __executable gem layer__, which is the layer that will enable a script provided by a gem to embed its own default
+  config. __You may consider this level as the layer where you will set the default values for the properties of your
+  executable__. This layer will get the config from the Gem that hosts the current __executable__.
 * The __global layer__, which is the layer to declare options for all users that use the ruby script using this gem.
 * The __user layer__, which is the layer, where a user can set options for the ruby script using this gem.
 * The __extra layer__, which provides the possibility to specify another config file from the config itself.
 * The __enviroment variables layer__, which provides the possibility to include in the config variables coming from
-  the shell variables. See [below](#environment-variables) for more info.
+  the shell variables. See [below](#environment-variables) for more info. This level is optional and not created by
+  default.
 * The __command-line layer__, which provides the ability to specify options from the command line.
 * The __override layer__, which will contain all modifications done to the config at run time.
 
@@ -28,6 +29,8 @@ All the config files are following the [YAML] syntax.
 
 __If you're looking for a complete solution for your command line scripts, including some logging features, then you
 are probably looking for the [easy_app_helper Gem][EAH], which is itself internally relying on [stacked_config][SC].__
+
+Version 1.x introduces some minor non compatibilities with previous versions. Check [below]() for more info.
 
 ## Installation
 
@@ -80,7 +83,7 @@ clears the override layer.
 Every layer is accessible through the following orchestrator properties:
 
 * `system_layer`
-* `gem_layer`
+* `executable_gem_layer`
 * `global_layer`
 * `user_layer`
 * `provided_config_file_layer`
@@ -95,7 +98,7 @@ at the source to understand where exactly your config files can be, but basicall
 doing things...
 
 * Sources for the [system layer][SystemLayer]
-* Sources for the [gem layer][GemLayer]
+* Sources for the [executable gem layer][ExecutableGemLayer]
 * Sources for the [global layer][GlobalLayer]
 * Sources for the [user layer][UserLayer]
 
@@ -299,7 +302,7 @@ The way layers are processed is done according to their priority. By default the
 priorities:
 
 * The system layer has a priority of __10__
-* The gem layer has a priority of __20__
+* The executable gem layer has a priority of __20__
 * The global layer has a priority of __30__
 * The user layer has a priority of __40__
 * The extra layer has a priority of __50__
@@ -486,6 +489,13 @@ This layer contains the following data:
  ## Bye...
 ```
 
+
+## Non nackward compatible changes
+
+### Between version 0.x and 1.x
+
+TODO
+
 ## Contributing
 
 1. [Fork it] ( https://github.com/lbriais/stacked_config/fork ), clone your fork.
@@ -494,12 +504,12 @@ This layer contains the following data:
 4. Push to the branch (`git push origin my-new-feature`).
 5. Create a Pull Request.
 
-[SS]:          https://github.com/lbriais/super_stack       "Super Stack gem"
-[SC]:          https://github.com/lbriais/stacked_config    "The stacked_config Gem"
-[SystemLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/system_layer.rb "the system layer places where config files are searched"
-[GemLayer]:    https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/gem_layer.rb "the gem layer places where config files are searched"
-[GlobalLayer]: https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/global_layer.rb "the global layer places where config files are searched"
-[UserLayer]:   https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
-[YAML]:        http://www.yaml.org/                         "The Yaml official site"
-[Slop]:        https://rubygems.org/gems/slop               "The Slop gem"
-[EAH]:         https://github.com/lbriais/easy_app_helper   "The EasyAppHelper gem"
+[SS]:                    https://github.com/lbriais/super_stack       "Super Stack gem"
+[SC]:                    https://github.com/lbriais/stacked_config    "The stacked_config Gem"
+[SystemLayer]:           https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/system_layer.rb "the system layer places where config files are searched"
+[ExecutableGemLayer]:    https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/executable_gem_layer.rb "the executable gem layer places where config files are searched"
+[GlobalLayer]:           https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/global_layer.rb "the global layer places where config files are searched"
+[UserLayer]:             https://github.com/lbriais/stacked_config/blob/master/lib/stacked_config/layers/user_layer.rb   "the user layer places where config files are searched"
+[YAML]:                  http://www.yaml.org/                         "The Yaml official site"
+[Slop]:                  https://rubygems.org/gems/slop               "The Slop gem"
+[EAH]:                   https://github.com/lbriais/easy_app_helper   "The EasyAppHelper gem"
