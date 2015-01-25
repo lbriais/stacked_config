@@ -46,6 +46,15 @@ describe StackedConfig::Layers::EnvLayer do
       expect(layer.keys.length == 1).to be_truthy
     end
 
+    [NIL_FILTER, STRING_FILTER, ARRAY_FILTER, REGEXP_FILTER].each do |filter|
+      it "should be the same to provide a #{filter.class} filter to the constructor or afterwards" do
+        layer1 = StackedConfig::Layers::EnvLayer.new(filter)
+        layer2 = StackedConfig::Layers::EnvLayer.new
+        layer2.filter = filter
+        expect(layer1).to eq layer2
+      end
+    end
+
   end
 
 end
