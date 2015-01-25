@@ -26,8 +26,13 @@ module StackedConfig
       self << env_layer
     end
 
-    def add_gem_layer(gem_name, priority = 30)
-
+    def include_gem_layer_for(gem_name, priority = 30)
+      gem_layer  = StackedConfig::Layers::GemLayer.new
+      gem_layer.gem_name = gem_name
+      raise "No config found in gem #{gem_name}" if gem_layer.file_name.nil?
+      gem_layer.name = "#{gem_name} Gem configuration level"
+      gem_layer.priority = priority
+      self << gem_layer
     end
 
     private

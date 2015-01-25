@@ -26,9 +26,19 @@ module StackedConfig
       SYSTEM_CONFIG_ROOT[os_flavour]
     end
 
+    def system_config_root
+      StackedConfig::SourceHelper.system_config_root
+    end
+
+
     def self.user_config_root
       Dir.home
     end
+
+    def user_config_root
+      StackedConfig::SourceHelper.user_config_root
+    end
+
 
     def self.executable_gem_config_root
       return nil unless $PROGRAM_NAME
@@ -40,21 +50,23 @@ module StackedConfig
       nil
     end
 
-    # def self.gem_config_root
-    #   return nil unless gem_name
-    #   Gem.loaded_specs.each_pair do |name, spec|
-    #     return spec.full_gem_path if name == gem_name
-    #   end
-    #   nil
-    # end
-
-    def gem_config_root
-      StackedConfig::SourceHelper.gem_config_root
-    end
-
     def executable_gem_config_root
       StackedConfig::SourceHelper.executable_gem_config_root
     end
+
+
+    def self.gem_config_root(gem_name)
+      return nil unless gem_name
+      Gem.loaded_specs.each_pair do |name, spec|
+        return spec.full_gem_path if name == gem_name
+      end
+      nil
+    end
+
+    def gem_config_root
+     self.respond_to?(:gem_name) ? StackedConfig::SourceHelper.gem_config_root(gem_name) : nil
+    end
+
 
     def supported_oses
       StackedConfig::SourceHelper.supported_oses
@@ -64,13 +76,6 @@ module StackedConfig
       @os_flavour ||= StackedConfig::SourceHelper.os_flavour
     end
 
-    def system_config_root
-      StackedConfig::SourceHelper.system_config_root
-    end
-
-    def user_config_root
-      StackedConfig::SourceHelper.user_config_root
-    end
 
     def set_config_file(places)
       @file_name = nil

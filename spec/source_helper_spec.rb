@@ -21,6 +21,13 @@ describe StackedConfig::SourceHelper do
     expect(subject.user_config_root).to_not be_nil
   end
 
+  it 'should provide an executable gem config root' do
+    expect(subject.executable_gem_config_root).to_not be_nil
+  end
+
+  it 'should provide a gem config root' do
+    expect(subject.gem_config_root).to_not be_nil
+  end
 
 end
 

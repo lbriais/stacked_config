@@ -6,7 +6,7 @@ module StackedConfig
       attr_reader :gem_name
 
       def gem_name=(gem_name)
-        @gem_name = gem_name
+        @gem_name = gem_name.to_s
         rescan
         reload
       end

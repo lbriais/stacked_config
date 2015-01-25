@@ -130,5 +130,15 @@ describe StackedConfig::Orchestrator do
 
   end
 
+  context 'when adding a gem config in the config' do
+
+    it 'should insert the new layer with a default priority of 30' do
+      gem_path = File.expand_path '../..', __FILE__
+      allow(StackedConfig::SourceHelper).to receive(:gem_config_root) {File.join(gem_path, 'test', 'tstgem') }
+      expect {subject.include_gem_layer_for :tstgem}.not_to raise_error
+      puts subject.detailed_layers_info
+    end
+
+  end
 
 end
