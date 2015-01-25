@@ -1,7 +1,7 @@
 module StackedConfig
   module Layers
 
-    class GemLayer < StackedConfig::Layers::GenericLayer
+    class ExecutableGemLayer < StackedConfig::Layers::GenericLayer
       def possible_sources
         [
             ['##GEM_CONFIG_ROOT##', 'etc', '##PROGRAM_NAME##.##EXTENSION##' ],

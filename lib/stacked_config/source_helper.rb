@@ -30,7 +30,7 @@ module StackedConfig
       Dir.home
     end
 
-    def self.gem_config_root
+    def self.executable_gem_config_root
       return nil unless $PROGRAM_NAME
 
       Gem.loaded_specs.each_pair do |name, spec|
@@ -40,8 +40,8 @@ module StackedConfig
       nil
     end
 
-    def gem_config_root
-      StackedConfig::SourceHelper.gem_config_root
+    def executable_gem_config_root
+      StackedConfig::SourceHelper.executable_gem_config_root
     end
 
     def supported_oses
@@ -91,8 +91,8 @@ module StackedConfig
       exec_name = manager.nil? ? StackedConfig::Orchestrator.default_config_file_base_name : manager.config_file_base_name
       res.gsub! '##PROGRAM_NAME##', exec_name
       if res =~ /##GEM_CONFIG_ROOT##/
-        return nil unless gem_config_root
-        res.gsub! '##GEM_CONFIG_ROOT##', gem_config_root
+        return nil unless executable_gem_config_root
+        res.gsub! '##GEM_CONFIG_ROOT##', executable_gem_config_root
       end
 
       res

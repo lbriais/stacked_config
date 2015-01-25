@@ -11,7 +11,8 @@ script. By default, it will handle already few config layers:
 
 * The __system layer__, which is a layer common to all applications using this gem.
 * The __gem layer__, which is the layer that will enable a gem to embed its own config. __You may consider this level
-  as the layer where you will set the default values for your properties__.
+  as the layer where you will set the default values for the properties of your executable__. This layer will get
+  the config of the Gem that hosts the current __executable__.
 * The __global layer__, which is the layer to declare options for all users that use the ruby script using this gem.
 * The __user layer__, which is the layer, where a user can set options for the ruby script using this gem.
 * The __extra layer__, which provides the possibility to specify another config file from the config itself.

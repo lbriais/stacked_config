@@ -13,7 +13,7 @@ describe StackedConfig::Orchestrator do
 
     allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root }
     allow(StackedConfig::SourceHelper).to receive(:user_config_root) { altered_user_conf_root }
-    allow(StackedConfig::SourceHelper).to receive(:gem_config_root) { altered_gem_conf_root }
+    allow(StackedConfig::SourceHelper).to receive(:executable_gem_config_root) { altered_gem_conf_root }
 
     StackedConfig::Orchestrator.new
   }
@@ -53,8 +53,8 @@ describe StackedConfig::Orchestrator do
       expect(subject.system_layer).to be subject.to_a.first
     end
 
-    it 'should have the gem layer evaluated in second' do
-      expect(subject.gem_layer).to be subject.to_a[1]
+    it 'should have the executable gem layer evaluated in second' do
+      expect(subject.executable_gem_layer).to be subject.to_a[1]
     end
 
     it 'should have the global layer evaluated in third' do

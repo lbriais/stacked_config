@@ -3,7 +3,7 @@ module StackedConfig
 
     include StackedConfig::ProgramDescriptionHelper
 
-    attr_reader :system_layer, :global_layer, :gem_layer, :user_layer, :env_layer,
+    attr_reader :system_layer, :global_layer, :executable_gem_layer, :user_layer, :env_layer,
                 :command_line_layer, :provided_config_file_layer
 
     def initialize
@@ -35,8 +35,8 @@ module StackedConfig
       # The system level
       @system_layer = setup_layer StackedConfig::Layers::SystemLayer, 'System-wide configuration level', 10
 
-      # The gem level
-      @gem_layer = setup_layer StackedConfig::Layers::GemLayer, 'Gem configuration level', 20
+      # The executable gem level
+      @executable_gem_layer = setup_layer StackedConfig::Layers::ExecutableGemLayer, 'Gem associated to the executable running configuration level', 20
 
       # The global level
       @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 30
