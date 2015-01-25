@@ -7,13 +7,13 @@ describe StackedConfig::Orchestrator do
     # Patching SourceHelper to find test config files in this gem test directory instead of from the system.
     os = StackedConfig::SourceHelper.os_flavour
     gem_path = File.expand_path '../..', __FILE__
-    altered_sys_conf_root = File.join gem_path, 'test', os.to_s, StackedConfig::SourceHelper::SYSTEM_CONFIG_ROOT[os]
+    altered_sys_conf_root = File.join gem_path, 'test', os.to_s, StackedConfig::Layers::SystemLayer::SYSTEM_CONFIG_ROOT[os]
     altered_user_conf_root = File.join gem_path, 'test', 'user'
     altered_gem_conf_root = File.join(gem_path, 'test', 'tstgem')
 
-    allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root }
-    allow(StackedConfig::SourceHelper).to receive(:user_config_root) { altered_user_conf_root }
-    allow(StackedConfig::SourceHelper).to receive(:executable_gem_config_root) { altered_gem_conf_root }
+    allow(StackedConfig::Layers::SystemLayer).to receive(:system_config_root) { altered_sys_conf_root }
+    allow(StackedConfig::Layers::UserLayer).to receive(:user_config_root) { altered_user_conf_root }
+    allow(StackedConfig::Layers::ExecutableGemLayer).to receive(:executable_gem_config_root) { altered_gem_conf_root }
 
     StackedConfig::Orchestrator.new
   }
@@ -134,7 +134,9 @@ describe StackedConfig::Orchestrator do
 
     it 'should insert the new layer with a default priority of 30' do
       gem_path = File.expand_path '../..', __FILE__
-      allow(StackedConfig::SourceHelper).to receive(:gem_config_root) {File.join(gem_path, 'test', 'tstgem') }
+      allow(StackedConfig::Layers::GemLayer).to receive(:gem_config_root) do |gem_name|
+        File.join(gem_path, 'test', gem_name.to_s)
+      end
       expect {subject.include_gem_layer_for :tstgem}.not_to raise_error
       puts subject.detailed_layers_info
     end
