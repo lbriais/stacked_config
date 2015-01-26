@@ -22,7 +22,8 @@ module StackedConfig
           already_found = used = true if exists and not already_found
           result[file] = {
               exists: exists,
-              used: used
+              used: used,
+              for_layer: [name]
           }
         end
         result

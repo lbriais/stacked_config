@@ -64,6 +64,16 @@ module StackedConfig
       info.join "\n"
     end
 
+    def detailed_config_files_info
+      merger = SuperStack::Manager.new
+      merger.merge_policy = SuperStack::MergePolicies::FullMergePolicy
+      layers.values.each do |layer|
+        merger << layer.possible_config_files if layer.respond_to? :possible_config_files
+      end
+      merger[]
+    end
+
+
     def command_line_help
       command_line_layer.help
     end

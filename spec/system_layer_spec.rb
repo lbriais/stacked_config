@@ -35,9 +35,6 @@ describe StackedConfig::Layers::SystemLayer do
     expect(subject[:stacked_config_copyright]).not_to be_nil
   end
 
-  it 'should provide a list of potential config files' do
-    puts subject.possible_config_files.to_yaml
-  end
 
 
 
