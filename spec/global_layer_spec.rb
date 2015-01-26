@@ -14,6 +14,10 @@ describe StackedConfig::Layers::GlobalLayer do
     s
   }
 
+  it 'should provide a system config root' do
+    expect(subject.system_config_root).to_not be_nil
+  end
+
   it 'should return the path of the first matching config file it found' do
     expect(subject.file_name).not_to be_nil
   end
