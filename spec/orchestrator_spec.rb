@@ -138,7 +138,6 @@ describe StackedConfig::Orchestrator do
         File.join(gem_path, 'test', gem_name.to_s)
       end
       expect {subject.include_gem_layer_for :tstgem}.not_to raise_error
-      puts subject.detailed_layers_info
     end
 
   end

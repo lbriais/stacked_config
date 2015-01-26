@@ -11,6 +11,10 @@ describe StackedConfig::Layers::ExecutableGemLayer do
     s
   }
 
+  it 'should provide an executable gem config root' do
+    expect(subject.executable_gem_config_root).to_not be_nil
+  end
+
   it 'should return the path of the first matching config file it found' do
     expect(subject.file_name).not_to be_nil
   end

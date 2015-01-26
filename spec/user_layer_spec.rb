@@ -13,6 +13,10 @@ describe StackedConfig::Layers::UserLayer do
     s
   }
 
+  it 'should provide a user config root' do
+    expect(subject.user_config_root).to_not be_nil
+  end
+
   it 'should return the path of the first matching config file it found' do
     expect(subject.file_name).not_to be_nil
   end
