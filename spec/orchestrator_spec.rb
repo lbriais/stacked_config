@@ -142,4 +142,16 @@ describe StackedConfig::Orchestrator do
 
   end
 
+  it 'should give info about where files are searched' do
+    info = subject.detailed_config_files_info
+    expect(info).to be_a Hash
+    found_files = info.keys.map { |file| File.readable?(file) ? file : nil}.compact
+    expect(found_files.length).to be 4
+    found_files.each do |file|
+      expect(info[file][:exists]).to be_truthy
+      expect(info[file][:used]).to be_truthy
+    end
+
+  end
+
 end
