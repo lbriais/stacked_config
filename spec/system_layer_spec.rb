@@ -30,9 +30,9 @@ describe StackedConfig::Layers::SystemLayer do
   end
 
   it 'should enable to load the file' do
-    expect(subject[:stacked_config_copyright]).to be_nil
+    expect(subject['stacked_config_copyright']).to be_nil
     subject.load
-    expect(subject[:stacked_config_copyright]).not_to be_nil
+    expect(subject['stacked_config_copyright']).not_to be_nil
   end
 
 
