@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rspec', '~> 3.0'
 
-  spec.add_dependency 'super_stack', '~> 0.2', '>= 0.2.5'
+  spec.add_dependency 'super_stack', '~> 0.2', '>= 0.2.5', '< 0.4'
   spec.add_dependency 'slop', '~> 3.0'
 
 end
