@@ -491,11 +491,16 @@ This layer contains the following data:
 ```
 
 
-## Non nackward compatible changes
+## Non backward compatible changes
 
 ### Between version 0.x and 1.x
 
-TODO
+The Gem layer has not really the same meaning as in version 0.x. In the v1.x it corresponds to the
+executable_gem_layer.
+
+The Gem layer still exists but is now not created automatically. You should use the `include_gem_layer_for`
+orchestrator method to create one and you have to provide a Gem name and optionally a layer priority.
+
 
 ## Contributing
 
