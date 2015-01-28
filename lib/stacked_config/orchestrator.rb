@@ -3,7 +3,7 @@ module StackedConfig
 
     include StackedConfig::ProgramDescriptionHelper
 
-    attr_reader :system_layer, :global_layer, :gem_layer, :user_layer, :env_layer,
+    attr_reader :system_layer, :global_layer, :executable_gem_layer, :user_layer, :env_layer,
                 :command_line_layer, :provided_config_file_layer
 
     def initialize
@@ -19,11 +19,20 @@ module StackedConfig
       File.basename($PROGRAM_NAME).gsub /\.[^\.]+$/, ''
     end
 
-    def include_env_layer(filter = nil, priority = 60)
+    def include_env_layer(filter = nil, priority = 70)
       @env_layer = StackedConfig::Layers::EnvLayer.new filter
       env_layer.name = 'Environment variables level'
       env_layer.priority = priority
       self << env_layer
+    end
+
+    def include_gem_layer_for(gem_name, priority = 30)
+      gem_layer  = StackedConfig::Layers::GemLayer.new
+      gem_layer.gem_name = gem_name
+      raise "No config found in gem #{gem_name}" if gem_layer.file_name.nil?
+      gem_layer.name = "#{gem_name} Gem configuration level"
+      gem_layer.priority = priority
+      self << gem_layer
     end
 
     private
@@ -35,17 +44,17 @@ module StackedConfig
       # The system level
       @system_layer = setup_layer StackedConfig::Layers::SystemLayer, 'System-wide configuration level', 10
 
-      # The gem level
-      @gem_layer = setup_layer StackedConfig::Layers::GemLayer, 'Gem configuration level', 20
+      # The executable gem level
+      @executable_gem_layer = setup_layer StackedConfig::Layers::ExecutableGemLayer, 'Gem associated to the executable running configuration level', 20
 
       # The global level
-      @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 30
+      @global_layer = setup_layer StackedConfig::Layers::GlobalLayer, 'Global configuration level', 40
 
       # The user level
-      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 40
+      @user_layer = setup_layer StackedConfig::Layers::UserLayer, 'User configuration level', 50
 
       # The specifically provided config file level
-      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 50
+      @provided_config_file_layer = setup_layer StackedConfig::Layers::ProvidedConfigFileLayer, 'Specific config file configuration level', 60
 
       # The layer to write something
       override_layer = setup_layer SuperStack::Layer, 'Overridden configuration level', 1000

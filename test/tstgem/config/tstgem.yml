@@ -4,4 +4,4 @@
 
 gem_property: foo
 an_array:
-  - something super weird (at executable gem level)
+  - something super weird (at gem level)

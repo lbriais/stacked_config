@@ -7,13 +7,13 @@ describe StackedConfig::Orchestrator do
     # Patching SourceHelper to find test config files in this gem test directory instead of from the system.
     os = StackedConfig::SourceHelper.os_flavour
     gem_path = File.expand_path '../..', __FILE__
-    altered_sys_conf_root = File.join gem_path, 'test', os.to_s, StackedConfig::SourceHelper::SYSTEM_CONFIG_ROOT[os]
+    altered_sys_conf_root = File.join gem_path, 'test', os.to_s, StackedConfig::Layers::SystemLayer::SYSTEM_CONFIG_ROOT[os]
     altered_user_conf_root = File.join gem_path, 'test', 'user'
     altered_gem_conf_root = File.join(gem_path, 'test', 'tstgem')
 
-    allow(StackedConfig::SourceHelper).to receive(:system_config_root) { altered_sys_conf_root }
-    allow(StackedConfig::SourceHelper).to receive(:user_config_root) { altered_user_conf_root }
-    allow(StackedConfig::SourceHelper).to receive(:gem_config_root) { altered_gem_conf_root }
+    allow(StackedConfig::Layers::SystemLayer).to receive(:system_config_root) { altered_sys_conf_root }
+    allow(StackedConfig::Layers::UserLayer).to receive(:user_config_root) { altered_user_conf_root }
+    allow(StackedConfig::Layers::ExecutableGemLayer).to receive(:executable_gem_config_root) { altered_gem_conf_root }
 
     StackedConfig::Orchestrator.new
   }
@@ -53,8 +53,8 @@ describe StackedConfig::Orchestrator do
       expect(subject.system_layer).to be subject.to_a.first
     end
 
-    it 'should have the gem layer evaluated in second' do
-      expect(subject.gem_layer).to be subject.to_a[1]
+    it 'should have the executable gem layer evaluated in second' do
+      expect(subject.executable_gem_layer).to be subject.to_a[1]
     end
 
     it 'should have the global layer evaluated in third' do
@@ -130,5 +130,28 @@ describe StackedConfig::Orchestrator do
 
   end
 
+  context 'when adding a gem config in the config' do
+
+    it 'should insert the new layer with a default priority of 30' do
+      gem_path = File.expand_path '../..', __FILE__
+      allow(StackedConfig::Layers::GemLayer).to receive(:gem_config_root) do |gem_name|
+        File.join(gem_path, 'test', gem_name.to_s)
+      end
+      expect {subject.include_gem_layer_for :tstgem}.not_to raise_error
+    end
+
+  end
+
+  it 'should give info about where files are searched' do
+    info = subject.detailed_config_files_info
+    expect(info).to be_a Hash
+    found_files = info.keys.map { |file| File.readable?(file) ? file : nil}.compact
+    expect(found_files.length).to be 4
+    found_files.each do |file|
+      expect(info[file][:exists]).to be_truthy
+      expect(info[file][:used]).to be_truthy
+    end
+
+  end
 
 end
