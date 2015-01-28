@@ -32,7 +32,8 @@ All the config files are following the [YAML] syntax.
 __If you're looking for a complete solution for your command line scripts, including some logging features, then you
 are probably looking for the [easy_app_helper Gem][EAH], which is itself internally relying on [stacked_config][SC].__
 
-Version 1.x introduces some minor non compatibilities with previous versions. Check [below]() for more info.
+Version 1.x introduces some minor non compatibilities with previous versions. Check [below]
+(#between_version_0.x_and_1.x) for more info.
 
 ## Installation
 
