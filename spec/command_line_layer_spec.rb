@@ -24,5 +24,18 @@ describe StackedConfig::Layers::CommandLineLayer do
     expect(subject.possible_options.include? :verbose).to be_truthy
   end
 
+  context 'when command line parameter are passed' do
+    before(:all) {
+      ARGV = ['--help']
+    }
+
+    it 'should end-up as a value in the layer' do
+      subject.reload
+      expect(subject.length).not_to be 0
+      expect(subject['help']).to be_truthy
+    end
+
+  end
+
 
 end
