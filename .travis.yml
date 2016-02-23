@@ -2,4 +2,4 @@ language: ruby
 rvm:
   - 2.2.2
 script:
-  - bundle exec rake spec -f d
+  - bundle exec rspec -f d 2> /dev/null
