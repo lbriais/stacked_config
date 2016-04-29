@@ -5,6 +5,8 @@ module StackedConfig
 
       attr_reader :slop_definition
 
+      attr_accessor :extra_help
+
       def initialize
         @slop_definition = Slop.new
         build_command_line_options
@@ -61,7 +63,9 @@ module StackedConfig
         if manager.nil?
           'No banner unless added to a manager !'
         else
-          "\nUsage: #{manager.config_file_base_name} [options]\n#{manager.app_name} Version: #{manager.app_version}\n\n#{manager.app_description}"
+          header = "\nUsage: #{manager.config_file_base_name} [options]\n#{manager.app_name} Version: #{manager.app_version}\n\n#{manager.app_description}"
+          header += extra_help unless extra_help.nil? or extra_help == ''
+          header
         end
       end
 
