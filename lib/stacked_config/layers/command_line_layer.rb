@@ -64,7 +64,7 @@ module StackedConfig
           'No banner unless added to a manager !'
         else
           header = "\nUsage: #{manager.config_file_base_name} [options]\n#{manager.app_name} Version: #{manager.app_version}\n\n#{manager.app_description}"
-          header += extra_help unless extra_help.nil? or extra_help == ''
+          header += "\n#{extra_help}" unless extra_help.nil? or extra_help == ''
           header
         end
       end
