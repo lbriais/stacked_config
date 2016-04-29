@@ -26,7 +26,7 @@ describe StackedConfig::Layers::CommandLineLayer do
 
   context 'when command line parameter are passed' do
     before(:all) {
-      ARGV = ['--help']
+      ARGV.replace ['--help']
     }
 
     it 'should end-up as a value in the layer' do
@@ -36,6 +36,20 @@ describe StackedConfig::Layers::CommandLineLayer do
     end
 
   end
+
+  context 'when extra command line parameter are passed (not part of a defined option)' do
+    let(:extra_options)  {%w(extra1 extra2) }
+    let(:options) { %w(--help  --verbose) + extra_options }
+
+    it 'should provide the extra options while leaving ARGV untouched' do
+      ARGV.replace options
+      subject.reload
+      expect(subject.extra_parameters).to eq extra_options
+      expect(ARGV).to eq options
+
+    end
+  end
+
 
 
 end

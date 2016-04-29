@@ -42,6 +42,14 @@ module StackedConfig
         slop_definition.to_s
       end
 
+      def extra_parameters
+        save = ARGV.dup
+        return slop_definition.parse!.dup
+      ensure
+        ARGV.replace save
+      end
+
+
       private
 
       # Builds a nice separator
@@ -68,8 +76,6 @@ module StackedConfig
           header
         end
       end
-
-
 
     end
 
