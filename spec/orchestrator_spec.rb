@@ -116,6 +116,11 @@ describe StackedConfig::Orchestrator do
 
   end
 
+  it 'should not have project layer by defaut' do
+    expect(subject.project_layer).to be_nil
+  end
+
+
   it 'should not have environment variables by defaut' do
     expect(subject.env_layer).to be_nil
   end

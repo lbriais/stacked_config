@@ -4,7 +4,7 @@ module StackedConfig
     include StackedConfig::ProgramDescriptionHelper
 
     attr_reader :system_layer, :global_layer, :executable_gem_layer, :user_layer, :env_layer,
-                :command_line_layer, :provided_config_file_layer
+                :command_line_layer, :provided_config_file_layer, :project_layer
 
     def initialize
       super
@@ -17,6 +17,13 @@ module StackedConfig
 
     def self.default_config_file_base_name
       File.basename($PROGRAM_NAME).gsub /\.[^\.]+$/, ''
+    end
+
+    def include_project_layer(file_or_directory, project_file_basename=nil, priority = 65)
+      @project_layer = StackedConfig::Layers::ProjectLayer.new file_or_directory, project_file_basename
+      env_layer.name = 'Project level'
+      env_layer.priority = priority
+      self << env_layer
     end
 
     def include_env_layer(filter = nil, priority = 70)
