@@ -3,8 +3,7 @@ module StackedConfig
 
     class ProjectLayer < SuperStack::Layer
 
-      attr_accessor :project_file_basename
-      attr_reader :started_from_directory
+      attr_reader :started_from_directory, :project_file_basename
 
       def initialize(file_or_directory, project_file_basename=nil)
         if Dir.exists? file_or_directory

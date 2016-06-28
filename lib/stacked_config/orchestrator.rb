@@ -21,9 +21,9 @@ module StackedConfig
 
     def include_project_layer(file_or_directory, project_file_basename=nil, priority = 65)
       @project_layer = StackedConfig::Layers::ProjectLayer.new file_or_directory, project_file_basename
-      env_layer.name = 'Project level'
-      env_layer.priority = priority
-      self << env_layer
+      project_layer.name = 'Project level'
+      project_layer.priority = priority
+      self << project_layer
     end
 
     def include_env_layer(filter = nil, priority = 70)
