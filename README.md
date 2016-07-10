@@ -32,6 +32,9 @@ All the config files are following the [YAML] syntax.
 __If you're looking for a complete solution for your command line scripts, including some logging features, then you
 are probably looking for the [easy_app_helper Gem][EAH], which is itself internally relying on [stacked_config][SC].__
 
+Version 2.x introduces  non compatibilities with previous versions. Check [below]
+(#between-version-1x-and-2x) for more info.
+
 Version 1.x introduces some minor non compatibilities with previous versions. Check [below]
 (#between-version-0x-and-1x) for more info.
 
@@ -493,6 +496,55 @@ This layer contains the following data:
 
 
 ## Non backward compatible changes
+
+### Between version 1.x and 2.x
+
+Versions 1.x of this gem were relying on the [super_stack][SS] 0.x, whereas versions 2.x are actually
+relying on the [super_stack][SS] 1.x. The reason why this gem bumps to 2.x is because of non-backward
+compatible features it introduces.
+
+Basically it is about clarifying some inconsistencies on how to access the merged tree. Previously for
+the first level (roots) you could access a value using indifferently a symbol or a string as a key,
+ie `manager[:an_entry]` was giving the same result as `manager['an_entry']`.
+
+This was clearly wrong and not consistent everywhere.
+__Starting with version `2.0.0` this is no more the case__. Nevertheless a compatibility mode is provided for 
+applications relying on the legacy mechanism, you just need to do __just after requiring this gem__:
+
+```ruby
+require 'stacked_config'
+SuperStack.set_compatibility_mode
+```
+
+Of course, if you don't want to use this compatibility mode, this may have an impact on you. As if in 
+your code you where using this feature, you either need to change your code or your config files. (to
+access a yaml property as symbol you need to declare it with a leading colon). 
+
+For example, the following config file:
+
+```yaml
+my_property: a value
+an_array:
+  - value 1
+  - value 2
+```
+Could be rewritten as 
+
+```yaml
+:my_property: a value
+:an_array:
+  - value 1
+  - value 2
+```
+and then if you were accessing my_property in your code using `config[:my_property]`, you won't need
+to change your code without even activating the compatibility mode.
+
+Actually depending on your case, you may want to:
+
+* Adapt your code to the new version without compatibility mode
+* Adapt your config files to the new version without compatibility mode
+* Use the new version in compatibility mode
+* Keep the old version
 
 ### Between version 0.x and 1.x
 
