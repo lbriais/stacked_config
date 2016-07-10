@@ -2,7 +2,7 @@
 # It is dedicated to configuration for all users running the program rspec
 # To be used at administrator level only
 
-global_property: foo
-an_array:
+:global_property: foo
+:an_array:
   - defined at global level
   - pretty cool (global)

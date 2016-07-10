@@ -29,9 +29,9 @@ describe StackedConfig::Layers::GlobalLayer do
   end
 
   it 'should enable to load the file' do
-    expect(subject['an_array']).to be_nil
+    expect(subject[:an_array]).to be_nil
     subject.load
-    expect(subject['an_array']).to be_an Array
+    expect(subject[:an_array]).to be_an Array
   end
 
 
