@@ -513,7 +513,7 @@ applications relying on the legacy mechanism, you just need to do __just after r
 
 ```ruby
 require 'stacked_config'
-SuperStack.set_compatibility_mode
+SuperStack.compatibility_mode = true
 ```
 
 Of course, if you don't want to use this compatibility mode, this may have an impact on you. As if in 
