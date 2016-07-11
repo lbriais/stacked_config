@@ -509,12 +509,19 @@ ie `manager[:an_entry]` was giving the same result as `manager['an_entry']`.
 
 This was clearly wrong and not consistent everywhere.
 __Starting with version `2.0.0` this is no more the case__. Nevertheless a compatibility mode is provided for 
-applications relying on the legacy mechanism, you just need to do __just after requiring this gem__:
+applications relying on the legacy mechanism, you just need to:
 
 ```ruby
 require 'stacked_config'
 SuperStack.compatibility_mode = true
 ```
+
+As from now any layer or manager created will have the old behaviour, but be careful, __only the newly 
+created object will reflect this__.
+
+You can switch back to standard behaviour by setting the `compatibility_mode` to false, but again only 
+the newly created object will reflect this. It is advised to use one mode or the other but to avoid to 
+mix...
 
 Of course, if you don't want to use this compatibility mode, this may have an impact on you. As if in 
 your code you where using this feature, you either need to change your code or your config files. (to
