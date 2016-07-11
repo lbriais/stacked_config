@@ -32,7 +32,7 @@ describe StackedConfig::Layers::CommandLineLayer do
     it 'should end-up as a value in the layer' do
       subject.reload
       expect(subject.length).not_to be 0
-      expect(subject['help']).to be_truthy
+      expect(subject[:help]).to be_truthy
     end
 
   end
