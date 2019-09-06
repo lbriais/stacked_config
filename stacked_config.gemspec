@@ -24,6 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
 
   spec.add_dependency 'super_stack', '~> 1.0'
-  spec.add_dependency 'slop', '~> 3.0'
+  spec.add_dependency 'slop', '~> 3.6'
 
 end
